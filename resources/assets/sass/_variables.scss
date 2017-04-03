@@ -1,6 +1,6 @@
 
 // Body
-$body-bg: #f5f8fa;
+$body-bg: #000000;
 
 // Borders
 $laravel-border-color: darken($body-bg, 10%);
@@ -36,3 +36,11 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+
+// navbar menu link color
+$navbar-light-color: #fff;
+// navbar menu link hover color
+$navbar-light-hover-color: red;
+// navbar brand font color
+$navbar-light-active-color: #fff;

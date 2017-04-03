@@ -26,8 +26,10 @@
 <body>
     <header>
         @yield('header')
-            @component('components.navbar')
-            @endcomponent
+            <div class="container">
+                @component('components.navbar')
+                @endcomponent
+            </div>
         @show
     </header>
 

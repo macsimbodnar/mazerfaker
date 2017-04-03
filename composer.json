@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "mazerfaker/mazerfaker",
+    "description": "MazerFaker",
+    "keywords": ["nasty", "nosense", "mazerfaker", "themazerfaker", "supernasty"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -12,7 +12,8 @@
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7"
+        "phpunit/phpunit": "~5.7",
+        "kint-php/kint": "*"
     },
     "autoload": {
         "classmap": [

@@ -13,7 +13,17 @@ return [
     |
     */
 
+    'confirm-password' => 'Confirm Password',
+    'email-adress' => 'E-Mail Address',
+    'email-example' => 'example@mail.com',
     'failed' => 'These credentials do not match our records.',
+    'forgot-password-q' => 'Forgot Your Password?',
+    'login' => 'Login',
+    'password' => 'Password',
+    'register' => 'Register',
+    'remember-me' => 'Remember me',
+    'reset-password' => 'Reset Password',
+    'send-reset-link' => 'Send Password Reset Link',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

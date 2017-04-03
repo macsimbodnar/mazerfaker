@@ -8,7 +8,7 @@ window._ = require('lodash');
  */
 
 window.$ = window.jQuery = require('jquery');
-
+window.Tether = require('tether');
 require('bootstrap');
 
 /**
@@ -17,7 +17,7 @@ require('bootstrap');
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

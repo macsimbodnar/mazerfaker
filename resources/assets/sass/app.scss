@@ -1,3 +1,8 @@
+/*********************************************
+ *                                           *
+ *                  IMPORTS                  *
+ *                                           *
+ *********************************************/
 
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
@@ -12,14 +17,57 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 
 
+
+
+
+
+/*********************************************
+ *                                           *
+ *            MazerFaker CUSTOMS             *
+ *                                           *
+ *********************************************/
+
+
+// Override bootstrap 4 button default font
 .btn {
   font-family: $font-family-gamer;
 }
-/*
-#00A550 verde
-#EC048C rosa
-#F68C1E arancio
-#ED1C24 rosso
-#FFF100 giallo
-#2E3092 blu
-*/
+
+// Auth form
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-top: 40px;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

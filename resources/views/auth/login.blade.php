@@ -2,72 +2,60 @@
 
 @section('content')
 <div class="container">
+    <div class="form-signin">
 
-    <div class="">
-        {{ __('auth.login') }}
-    </div>
+        <h1 class="form-signin-heading">{{ __('auth.login') }}</h1>
 
-    <div class="">
-        <form class="" role="form" method="POST" action="{{ route('login') }}">
-            {{ csrf_field() }}
+        <div class="">
+            <form class="" role="form" method="POST" action="{{ route('login') }}">
+                {{ csrf_field() }}
 
-            {{--<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">--}}
-            <div class="">
-                <label for="email" class="">
+                {{--<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">--}}
+                <label for="email" class="sr-only">
                     {{ __('auth.email-adress') }}
                 </label>
 
-                <div class="">
-                    <input id="email" type="email" class="" name="email" value="{{ old('email') }}" required autofocus>
+                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
 
-                    @if ($errors->has('email'))
-                        <span class="">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>
+                @if ($errors->has('email'))
+                    <span class="">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
 
-            {{--<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">--}}
-            <div class="">
-                <label for="password" class="">
+                {{--<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">--}}
+                <label for="password" class="sr-only">
                     {{ __('auth.password') }}
                 </label>
 
-                <div class="">
-                    <input id="password" type="password" class="" name="password" required>
+                <input id="password" type="password" class="form-control" name="password" required>
 
-                    @if ($errors->has('password'))
-                        <span class="">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                    @endif
+                @if ($errors->has('password'))
+                    <span class="">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                        {{ __('auth.remember-me') }}
+                    </label>
                 </div>
-            </div>
 
-            <div class="">
                 <div class="">
                     <div class="">
-                        <label>
-                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                            {{ __('auth.remember-me') }}
-                        </label>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">
+                            {{ __('auth.login') }}
+                        </button>
+
+                        <a class="btn btn-link btn-block" href="{{ route('password.request') }}">
+                            {{ __('auth.forgot-password-q') }}
+                        </a>
                     </div>
                 </div>
-            </div>
-
-            <div class="">
-                <div class="">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('auth.login') }}
-                    </button>
-
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                        {{ __('auth.forgot-password-q') }}
-                    </a>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 @endsection

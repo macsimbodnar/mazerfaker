@@ -339,6 +339,10 @@ Di solito sono scritti in `app/Console/Commands`.
 * `php artisan config:clear`
 * `php artisan view:clear` 
 
+### Permessi speciali per far andare laravel sul server
+* `sudo chgrp -R www-data storage bootstrap/cache`
+* `sudo chmod -R ug+rwx storage bootstrap/cache`
+
 
 
 ## Link utili

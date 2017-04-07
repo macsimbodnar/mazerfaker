@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+
     <div class="form-signin">
 
         <h1 class="form-signin-heading">{{ __('auth.login') }}</h1>

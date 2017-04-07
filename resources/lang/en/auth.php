@@ -23,7 +23,7 @@ return [
     'register' => 'Register',
     'remember-me' => 'Remember me',
     'reset-password' => 'Reset Password',
-    'send-reset-link' => 'Send Password Reset Link',
+    'send-reset-link' => 'Send Request',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

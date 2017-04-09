@@ -35,6 +35,6 @@ class GameRoomController extends Controller
     }
 
     public function game(Request $request, $name, $id) {
-
+        return view('pages.gameroom.games.' . $name);
     }
 }

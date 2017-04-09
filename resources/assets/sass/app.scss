@@ -33,6 +33,13 @@
   font-family: $font-family-gamer;
 }
 
+// Global Util
+.full-screen-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
 // Auth form
 .form-signin {
   max-width: 330px;
@@ -76,4 +83,23 @@
 }
 .form-register-button {
   margin-top: 100px;
+}
+
+// Nasty Button
+.nasty-button-container {
+  position: relative;
+  height: 17rem;
+  border: 1px solid;
+  top: calc(50% - 40px);
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+.nasty-button {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+.nasty-button:hover {
+  cursor: pointer;
 }

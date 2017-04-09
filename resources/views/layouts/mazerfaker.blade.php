@@ -20,27 +20,26 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-    @stack('scripts')
 
 </head>
 <body>
     <header>
         @yield('header')
-            <div class="container">
-                @component('components.navbar')
-                @endcomponent
-            </div>
+        <div class="container">
+        @component('components.navbar')
+            @endcomponent
+        </div>
         @show
     </header>
 
-    <div id="app">
-        @yield('content')
-    </div>
+    @yield('content')
 
     <footer>
         @yield('footer')
     </footer>
-<!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

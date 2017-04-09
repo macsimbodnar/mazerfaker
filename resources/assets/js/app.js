@@ -44,3 +44,8 @@ require('./bootstrap');
     }
 
 }());
+
+const brandButton = $('#navbar-main-brand');
+document.addEventListener("click", function (event) {
+    brandButton.css('color', '#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6));
+} );

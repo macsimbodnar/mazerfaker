@@ -4,8 +4,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <a class="navbar-brand" href="{{ url('/') }}">
-        {{ config('app.name', 'Laravel') }}
+    <a id="navbar-main-brand" class="navbar-brand" href="{{ url('/') }}">
+        {{ config('app.name', 'MazerFaker') }}
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

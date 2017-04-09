@@ -19,6 +19,14 @@ class PopulateRoleTable extends Migration
                 'description' => 'Super Nasty overpowered user!'
             )
         );
+
+
+        DB::table('roles')->insert(
+            array(
+                'name' => 'nasty',
+                'description' => 'Nasty user!'
+            )
+        );
     }
 
     /**

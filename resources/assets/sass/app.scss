@@ -33,11 +33,21 @@
   font-family: $font-family-gamer;
 }
 
-// Global Util
+// Global
 .full-screen-container {
   position: fixed;
   width: 100%;
   height: 100%;
+}
+
+// Global
+.border-div {
+  position: relative;
+  height: 17rem;
+  border: 1px solid;
+}
+.nasty-card {
+  text-align: center;
 }
 
 // Auth form
@@ -107,4 +117,11 @@
 }
 .nasty-button:hover {
   cursor: pointer;
+}
+
+// Games
+.game-card {
+  //width: 20rem;
+  //height: 100%;
+  margin-top: 20px;
 }

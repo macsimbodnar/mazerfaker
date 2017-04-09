@@ -48,3 +48,9 @@ Route::get('game-room', function() {
 Route::get('sala-giochi', function() {
     return redirect()->route('gameroom');
 });
+
+Route::get('games', function () {
+    return redirect()->route('gameroom');
+});
+
+Route::get('game/{name}/{version}', 'GameRoomController@game')->name('game');

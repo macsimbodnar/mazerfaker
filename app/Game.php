@@ -29,4 +29,12 @@ class Game extends Model
      * @var integer
      */
     protected $version;
+
+
+    /**
+     * Game thumbnail path
+     *
+     * @var string
+     */
+    protected $thumbnail;
 }

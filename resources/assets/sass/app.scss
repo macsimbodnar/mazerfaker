@@ -99,7 +99,7 @@
 .nasty-button-container {
   position: relative;
   height: 17rem;
-  border: 1px solid;
+  //border: 1px solid;
   top: calc(50% - 40px);
   left:50%;
   transform: translate(-50%,-50%);
@@ -126,7 +126,17 @@
   margin-top: 20px;
 }
 .game-frame {
-  width: 640px;
-  height: 480px;
+  width: 840px;//640px;
+  height: 680px;
+  //border: 1px solid;
+}
+.data-frame {
+  
+}
+.info-frame {
+  height: 200px;
+}
+.info-frame, .game-frame, .data-frame, .nasty-button-container
+{
   border: 1px solid;
 }

@@ -7,5 +7,10 @@
 
 return [
     'games' => 'Games',
+    'game-over' => 'HAHAHA... Game Over! (o)(o)',
+    'loading' => 'Loading',
+    'pause' => 'Pause',
     'play' => 'Play',
+    'restart' => 'Restart',
+    'start' => 'Start',
 ];

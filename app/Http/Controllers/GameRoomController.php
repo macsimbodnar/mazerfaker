@@ -34,7 +34,8 @@ class GameRoomController extends Controller
         return view('pages.gameroom.index', ['games' => Game::all()]);
     }
 
-    public function game(Request $request, $name, $id) {
-        return view('pages.gameroom.games.' . $name);
+    public function games(Request $request, $name) {
+
+        return view('pages.gameroom.games.' . $name, ['game' => Game::where('unic_name', $name)->first()]);
     }
 }

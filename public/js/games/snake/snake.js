@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 39);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -10330,164 +10330,214 @@ return jQuery;
 /***/ }),
 
 /***/ 10:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__ = __webpack_require__(47);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Created by Maksym Bodnar on 09/04/17.
+ * Created by max on 10/07/16.
  */
 
-var a = 'tossing,bloody,shitting,wanking,stinky,raging,dementing,dumb,dipping,fucking,dipping,holy,maiming,cocking,ranting,twunting,hairy,spunking,flipping,slapping,sodding,blooming,frigging,sponglicking,guzzling,glistering,cock wielding,failed,artist formally known as,unborn,pulsating,naked,throbbing,lonely,failed,stale,spastic,senile,strangely shaped,virgin,bottled,twin-headed,fat,gigantic,sticky,prodigal,bald,bearded,horse-loving,spotty,spitting,dandy,fritzl-admiring,friend of a,indeterminable,overrated,fingerlicking,diaper-wearing,leg-humping,gold-digging,mong loving,trout-faced,cunt rotting,flip-flopping,rotting,inbred,badly drawn,undead,annoying,whoring,leaking,dripping,racist,slutty,cross-eyed,irrelevant,mental,rotating,scurvy looking,rambling,gag sacking,cunting,wrinkled old,dried out,sodding,funky,silly,unhuman,bloated,wanktastic,bum-banging,cockmunching,animal-fondling,stillborn,scruffy-looking,hard-rubbing,rectal,glorious,eye-less,constipated,bastardized,utter,hitler\'s personal,irredeemable,complete,enormous,go suck a,fuckfaced,broadfaced,titless,son of a,demonizing,pigfaced,treacherous,retarded'.split(',');
-var b = 'cock,tit,cunt,wank,piss,crap,shit,arse,sperm,nipple,anus,colon,shaft,dick,poop,semen,slut,suck,earwax,fart,scrotum,cock-tip,tea-bag,jizz,cockstorm,bunghole,food trough,bum,butt,shitface,ass,nut,ginger,llama,tramp,fudge,vomit,cum,lard,puke,sphincter,nerf,turd,cocksplurt,cockthistle,dickwhistle,gloryhole,gaylord,spazz,nutsack,fuck,spunk,shitshark,shitehawk,fuckwit,dipstick,asswad,chesticle,clusterfuck,douchewaffle,retard'.split(',');
-var c = 'force,bottom,hole,goatse,testicle,balls,bucket,biscuit,stain,boy,flaps,erection,mange,twat,twunt,mong,spack,diarrhea,sod,excrement,faggot,pirate,asswipe,sock,sack,barrel,head,zombie,alien,minge,candle,torch,pipe,bint,jockey,udder,pig,dog,cockroach,worm,MILF,sample,infidel,spunk-bubble,stack,handle,badger,wagon,bandit,lord,bogle,bollock,tranny,knob,nugget,king,hole,kid,trailer,lorry,whale,rag,foot'.split(',');
-var d = 'licker,raper,lover,shiner,blender,fucker,assjacker,butler,packer,rider,wanker,sucker,felcher,wiper,experiment,wiper,bender,dictator,basher,piper,slapper,fondler,plonker,bastard,handler,herder,fan,amputee,extractor,professor,graduate,voyeur'.split(',');
 
-/* ###### STOP READING MY CODE IDIOT ###### */
 
-$(document).ready(function () {
-    var nastyButton = new NastyButton();
-    var nastyGreeting = new NastyGreeting();
-    nastyButton.startNasty();
-    nastyGreeting.startNasty();
-});
+var SnakeGame = function () {
+    function SnakeGame() {
+        _classCallCheck(this, SnakeGame);
 
-//
-// function nastyFunction() {
-//     nasty.NASTY.css('color', getNastyColor());
-//     soundNasty('./sounds/nasty/nasty' + getNastyRandom(nasty.speech) + '.mp3');
-//     console.log(getNastyGreeting());
-//     if(nasty.height >= nasty.top){
-//         window.alert('!!!GOOD JOB MAN!!!');
-//     } else {
-//         nasty.height =  nasty.height + 10;
-//         nasty.NASTY.css('height',  nasty.height);
-//         nasty.NASTY.css('font-size',  nasty.height);
-//     }
-// }
-//
-//
-// function getNastyColor() {
-//     return '#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6);
-// }
-//
-//
-// function getNastyRandom(range) {
-//     return Math.floor((Math.random() * range) + 1);
-// }
-//
-// /* ######  ###### STOP ######  ###### */
-// function soundNasty(path) {
-//     let audio = new Audio(path);
-//     audio.play();
-// }
-//
-// /* ###### PRICE THE GOODS ###### */
-// // idea + dictionary by hnldesign from b3ta
-// function getNastyGreeting() {
-//
-//
-//
+        this.snakeDim = 10;
+        this.canvas = document.getElementById("canvas");
+        this.w = this.canvas.width;
+        this.h = this.canvas.height;
+        this.ctx = this.canvas.getContext("2d");
+        this.mainMusic = document.getElementById('main-music');
+        this.foodMusic = document.getElementById('game-over-music');
+        this.gameOverMusic = document.getElementById('food-music');
+        this.loadingField = document.getElementById('loading');
+        this.gameMenu = $('#game-menu');
+        this.startButton = $('#start');
+        this.setListeners();
 
-// }
+        //Custom funny gameover messages
+        this.msgsSelf = [];
+        this.msgsSelf[0] = "Hahaha morto di fame! Cazzo ti mangi da solo?";
+        this.msgsSelf[1] = "Ti piaceee il serpente eeeeh?";
+        this.msgsSelf[2] = "Black salami";
+        this.msgsSelf[3] = "Do you have Autophagia?";
 
-/* ###### I WILL FUCK YOUR SISTER ###### */
-
-var NastyButton = function () {
-    function NastyButton() {
-        _classCallCheck(this, NastyButton);
-
-        this.countClick = 0;
-        this.maxNumOfClick = 50;
-        this.nastySounds = 43;
-        this.nastySoundsExt = '.mp3';
-        this.nastySoundsDir = './sounds/nasty/nasty';
-        this.buttonID = 'nasty';
-        this.nastyButton = $('#' + this.buttonID);
-        this.sizeDelta = 3;
-        this.size = parseInt(this.nastyButton.css('font-size'));
+        this.msgsWall = [];
+        this.msgsWall[0] = "Scarso!";
+        this.msgsWall[1] = "Torna a lavorare! (o)(o)";
+        this.msgsWall[2] = "8=========D";
+        this.msgsWall[3] = "MIIIII che capata!";
+        this.msgsWall[4] = "Ma quanto fai schifo?";
     }
 
-    _createClass(NastyButton, [{
-        key: 'startNasty',
-        value: function startNasty() {
-            this.nastyFunction();
+    _createClass(SnakeGame, [{
+        key: "start",
+        value: function start() {
+            var files = [this.mainMusic, this.foodMusic, this.gameOverMusic];
+            var counter = 0;
+            for (var i = 0; i < files.length; i++) {
+                files[i].addEventListener('loadeddata', function () {
+                    counter++;
+                    var percent = Math.floor(counter / files.length * 100);
+                    this.loadingField.innerHTML = 'Loading ' + percent + '%';
+                    if (percent === 100) {
+                        this.startButton.toggle();
+                    }
+                }.bind(this));
+            }
         }
     }, {
-        key: 'nastyFunction',
-        value: function nastyFunction() {
-            this.nastyButton.click(function () {
-
-                this.nastyButton.css('color', NastyUtil.nastyColor);
-                NastyUtil.playNastyAudio(this.nastySoundsDir + NastyUtil.getNastyRandom(this.nastySounds) + this.nastySoundsExt);
-                this.countClick++;
-
-                if (this.countClick >= this.maxNumOfClick) {
-                    window.alert('!!!GOOD JOB MAN!!!');
-                }
-                // else {
-                //     this.size += this.sizeDelta;
-                //     this.nastyButton.css('height', this.size);
-                //     this.nastyButton.css('font-size', this.size);
-                // }
-            }.bind(this));
-        }
-    }]);
-
-    return NastyButton;
-}();
-
-/* ###### NASTY ###### */
-
-
-var NastyGreeting = function () {
-    function NastyGreeting() {
-        _classCallCheck(this, NastyGreeting);
-
-        this.a = 'tossing,bloody,shitting,wanking,stinky,raging,dementing,dumb,dipping,fucking,dipping,holy,maiming,cocking,ranting,twunting,hairy,spunking,flipping,slapping,sodding,blooming,frigging,sponglicking,guzzling,glistering,cock wielding,failed,artist formally known as,unborn,pulsating,naked,throbbing,lonely,failed,stale,spastic,senile,strangely shaped,virgin,bottled,twin-headed,fat,gigantic,sticky,prodigal,bald,bearded,horse-loving,spotty,spitting,dandy,fritzl-admiring,friend of a,indeterminable,overrated,fingerlicking,diaper-wearing,leg-humping,gold-digging,mong loving,trout-faced,cunt rotting,flip-flopping,rotting,inbred,badly drawn,undead,annoying,whoring,leaking,dripping,racist,slutty,cross-eyed,irrelevant,mental,rotating,scurvy looking,rambling,gag sacking,cunting,wrinkled old,dried out,sodding,funky,silly,unhuman,bloated,wanktastic,bum-banging,cockmunching,animal-fondling,stillborn,scruffy-looking,hard-rubbing,rectal,glorious,eye-less,constipated,bastardized,utter,hitler\'s personal,irredeemable,complete,enormous,go suck a,fuckfaced,broadfaced,titless,son of a,demonizing,pigfaced,treacherous,retarded'.split(',');
-        this.b = 'cock,tit,cunt,wank,piss,crap,shit,arse,sperm,nipple,anus,colon,shaft,dick,poop,semen,slut,suck,earwax,fart,scrotum,cock-tip,tea-bag,jizz,cockstorm,bunghole,food trough,bum,butt,shitface,ass,nut,ginger,llama,tramp,fudge,vomit,cum,lard,puke,sphincter,nerf,turd,cocksplurt,cockthistle,dickwhistle,gloryhole,gaylord,spazz,nutsack,fuck,spunk,shitshark,shitehawk,fuckwit,dipstick,asswad,chesticle,clusterfuck,douchewaffle,retard'.split(',');
-        this.c = 'force,bottom,hole,goatse,testicle,balls,bucket,biscuit,stain,boy,flaps,erection,mange,twat,twunt,mong,spack,diarrhea,sod,excrement,faggot,pirate,asswipe,sock,sack,barrel,head,zombie,alien,minge,candle,torch,pipe,bint,jockey,udder,pig,dog,cockroach,worm,MILF,sample,infidel,spunk-bubble,stack,handle,badger,wagon,bandit,lord,bogle,bollock,tranny,knob,nugget,king,hole,kid,trailer,lorry,whale,rag,foot'.split(',');
-        this.d = 'licker,raper,lover,shiner,blender,fucker,assjacker,butler,packer,rider,wanker,sucker,felcher,wiper,experiment,wiper,bender,dictator,basher,piper,slapper,fondler,plonker,bastard,handler,herder,fan,amputee,extractor,professor,graduate,voyeur'.split(',');
-
-        this.combos = ['a,b,c', 'a,b,d', 'b,c', 'b,d'].map(function (c) {
-            return c.split(',');
-        });
-
-        this.buttonID = 'nasty';
-        this.nastyButton = $('#' + this.buttonID);
-    }
-
-    _createClass(NastyGreeting, [{
-        key: 'startNasty',
-        value: function startNasty() {
-            this.nastyButton.click(function (k) {
-                console.log(this.greeting);
+        key: "setListeners",
+        value: function setListeners() {
+            this.startButton.click(function (e) {
+                this.runGame();
             }.bind(this));
         }
     }, {
-        key: 'greeting',
-        get: function get() {
-            return this.combos[Math.random() * this.combos.length >> 0].map(function (k) {
-                if (k === 'a') {
-                    return this.a[Math.random() * this.a.length >> 0];
-                } else if (k === 'b') {
-                    return this.b[Math.random() * this.b.length >> 0];
-                } else if (k === 'c') {
-                    return this.c[Math.random() * this.c.length >> 0];
-                } else if (k === 'd') {
-                    return this.d[Math.random() * this.d.length >> 0];
-                }
-            }.bind(this)).join(' ');
+        key: "runGame",
+        value: function runGame() {
+            this.gameMenu.toggle();
+            this.mainMusic.play();
+        }
+    }, {
+        key: "init",
+        value: function init() {
+            var snake = void 0,
+                size = 10,
+                speed = 20,
+                dir = void 0,
+                game_loop = void 0,
+                over = 0,
+                hitType = void 0,
+                color = void 0,
+                pausa = false;
+
+            var f = new Food(this.snakeDim, this.snakeDim, size);
+        }
+    }, {
+        key: "paintCanvas",
+        value: function paintCanvas() {
+            this.ctx.fillStyle = "black";
+            this.ctx.fillRect(0, 0, this.w, this.h);
         }
     }]);
 
-    return NastyGreeting;
+    return SnakeGame;
 }();
+
+var Snake = function () {
+    function Snake(lenght, size) {
+        _classCallCheck(this, Snake);
+
+        this.size = size;
+        this.lenght = lenght;
+        this.snake = [];
+        this.dir = null;
+        this.pause = false;
+
+        for (var i = lenght - 1; i >= 0; i--) {
+            var f = new Food(0, 0, size);
+            f.x = i;
+            f.y = 0;
+            this.snake.push(f);
+        }
+
+        document.onkeydown = function (e) {
+            var key = e.keyCode;
+            //console.log(key);
+
+            if (key === 37 && this.dir !== "right") setTimeout(function () {
+                this.dir = "left";
+            }.bind(this), 30);else if (key === 38 && this.dir !== "down") setTimeout(function () {
+                this.dir = "up";
+            }.bind(this), 30);else if (key === 39 && this.dir !== "left") setTimeout(function () {
+                this.dir = "right";
+            }.bind(this), 30);else if (key === 40 && this.dir !== "up") setTimeout(function () {
+                this.dir = "down";
+            }.bind(this), 30);else if (key === 27 && this.pausa === true) setTimeout(function () {
+                this.pausa = false;this.pausaMessage('hide');this.mainMusic.play();
+            }.bind(this), 30);else if (key === 27 && this.pausa === false) setTimeout(function () {
+                this.pausa = true;this.pausaMessage('show');this.mainMusic.pause();
+            }.bind(this), 30);
+            // TODO
+            if (key) e.preventDefault();
+        }.bind(this);
+    }
+
+    _createClass(Snake, [{
+        key: "draw",
+        value: function draw(ctx) {
+            for (var i = 0; i < this.snake.lenght; i++) {
+                var s = this.snake[i];
+                ctx.fillStyle = s.color;
+                ctx.fillRect(s.x * this.size, s.y * this.size, this.size, this.size);
+            }
+        }
+    }, {
+        key: "update",
+        value: function update() {
+            var head_x = this.snake[0].x;
+            var head_y = this.snake[0].y;
+        }
+    }]);
+
+    return Snake;
+}();
+
+var Food = function () {
+    function Food(w, h, size) {
+        _classCallCheck(this, Food);
+
+        this.color = __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__["a" /* default */].nastyColor;
+        this.x = Math.round(Math.random() * (w - size) / size);
+        this.y = Math.round(Math.random() * (h - size) / size);
+    }
+
+    _createClass(Food, [{
+        key: "draw",
+        value: function draw(ctx, size) {
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x * size, this.y * size, size, size);
+        }
+    }]);
+
+    return Food;
+}();
+
+var snake = new SnakeGame();
+snake.start();
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+
+/***/ 39:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(10);
+
+
+/***/ }),
+
+/***/ 47:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Created by Maksym Bodnar on 10/04/17.
+ */
 
 /* ###### NASTY 2 ###### */
-
 
 var NastyUtil = function () {
     function NastyUtil() {
@@ -10495,18 +10545,18 @@ var NastyUtil = function () {
     }
 
     _createClass(NastyUtil, null, [{
-        key: 'getNastyRandom',
+        key: "getNastyRandom",
         value: function getNastyRandom(range) {
             return Math.floor(Math.random() * range + 1);
         }
     }, {
-        key: 'playNastyAudio',
+        key: "playNastyAudio",
         value: function playNastyAudio(path) {
             var audio = new Audio(path);
             audio.play();
         }
     }, {
-        key: 'nastyColor',
+        key: "nastyColor",
         get: function get() {
             return '#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6);
         }
@@ -10514,15 +10564,8 @@ var NastyUtil = function () {
 
     return NastyUtil;
 }();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
-
-/***/ 37:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(10);
-
+/* harmony default export */ __webpack_exports__["a"] = (NastyUtil);
 
 /***/ })
 

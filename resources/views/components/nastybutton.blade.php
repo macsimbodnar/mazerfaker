@@ -1,5 +1,5 @@
 @push('scripts')
-    <script src="{{ asset('js/nasty-button.js') }}"></script>
+    <script src="{{ asset('js/util/nasty-button.js') }}"></script>
 @endpush
 <div class="nasty-button-container">
     <div id="nasty" class="nasty-button">

@@ -11,7 +11,23 @@ const { mix } = require('laravel-mix');
  |
  */
 
+/**
+ * MAIN
+ */
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
 
-mix.js('resources/assets/js/nasty-button.js', 'public/js/nasty-button.js');
+
+/**
+ * UTIL
+ */
+mix.js('resources/assets/js/util/nasty-button.js', 'public/js/util/nasty-button.js');
+
+
+/**
+ * GAMES
+ */
+
+// Snake
+mix.js('resources/assets/js/games/snake/snake.js', 'public/js/games/snake/snake.js')
+   .sass('resources/assets/sass/games/snake/snake.scss', 'public/css/games/snake/snake.css');

@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'MazerFaker') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     @stack('styles')
 
     <!-- Scripts -->

@@ -53,4 +53,4 @@ Route::get('games', function () {
     return redirect()->route('gameroom');
 });
 
-Route::get('game/{name}/{version}', 'GameRoomController@game')->name('game');
+Route::get('games/{name}', 'GameRoomController@games')->name('games');

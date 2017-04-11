@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 39);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -10329,12 +10329,12 @@ return jQuery;
 
 /***/ }),
 
-/***/ 10:
+/***/ 11:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__ = __webpack_require__(3);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10345,10 +10345,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-var SnakeGame = function () {
-    function SnakeGame() {
-        _classCallCheck(this, SnakeGame);
-
+/*
+class SnakeGame {
+    constructor() {
         this.snakeDim = 10;
         this.canvas = document.getElementById("canvas");
         this.w = this.canvas.width;
@@ -10377,155 +10376,391 @@ var SnakeGame = function () {
         this.msgsWall[4] = "Ma quanto fai schifo?";
     }
 
-    _createClass(SnakeGame, [{
-        key: "start",
-        value: function start() {
-            var files = [this.mainMusic, this.foodMusic, this.gameOverMusic];
-            var counter = 0;
-            for (var i = 0; i < files.length; i++) {
-                files[i].addEventListener('loadeddata', function () {
-                    counter++;
-                    var percent = Math.floor(counter / files.length * 100);
-                    this.loadingField.innerHTML = 'Loading ' + percent + '%';
-                    if (percent === 100) {
-                        this.startButton.toggle();
-                    }
-                }.bind(this));
-            }
-        }
-    }, {
-        key: "setListeners",
-        value: function setListeners() {
-            this.startButton.click(function (e) {
-                this.runGame();
+    start() {
+        let files = [this.mainMusic, this.foodMusic, this.gameOverMusic];
+        let counter = 0;
+        for(let i = 0; i < files.length; i++) {
+            files[i].addEventListener('loadeddata', function () {
+                counter++;
+                let percent = Math.floor((counter / files.length) * 100);
+                this.loadingField.innerHTML = 'Loading ' + percent + '%';
+                if(percent === 100) {
+                    this.startButton.toggle();
+                }
             }.bind(this));
         }
-    }, {
-        key: "runGame",
-        value: function runGame() {
-            this.gameMenu.toggle();
-            this.mainMusic.play();
+    }
+
+    setListeners() {
+        this.startButton.click(function (e) {
+            this.runGame();
+        }.bind(this));
+    }
+
+    runGame() {
+        this.gameMenu.toggle();
+        this.mainMusic.play();
+    }
+
+    init() {
+        let snake,
+            size = 10,
+            speed = 20,
+            dir,
+            game_loop,
+            over = 0,
+            hitType,
+            color,
+            pausa = false;
+
+        //let f = new Food(this.snakeDim, this.snakeDim, size);
+    }
+
+    initCanvas() {
+        this.ctx.fillStyle = "black";
+        this.ctx.fillRect(0, 0, this.w, this.h);
+    }
+
+    pausaMessage (command) {
+        if(command === 'hide') {
+            $('#pausa').hide();
+        } else {
+            $('#pausa').show();
         }
-    }, {
-        key: "init",
-        value: function init() {
-            var snake = void 0,
-                size = 10,
-                speed = 20,
-                dir = void 0,
-                game_loop = void 0,
-                over = 0,
-                hitType = void 0,
-                color = void 0,
-                pausa = false;
+    }
 
-            var f = new Food(this.snakeDim, this.snakeDim, size);
-        }
-    }, {
-        key: "paintCanvas",
-        value: function paintCanvas() {
-            this.ctx.fillStyle = "black";
-            this.ctx.fillRect(0, 0, this.w, this.h);
-        }
-    }]);
 
-    return SnakeGame;
-}();
+}
 
-var Snake = function () {
-    function Snake(lenght, size) {
-        _classCallCheck(this, Snake);
+class Snake {
 
+    constructor(lenght, size, w, h, mainMusic, f_pause, f_gameover, f_score) {
         this.size = size;
         this.lenght = lenght;
         this.snake = [];
         this.dir = null;
         this.pause = false;
+        this.w = w;
+        this.h = h;
+        this.over = 0;
+        this.hitType = null;
+        this.gameOverCallBack = f_gameover;
+        this.score = 0;
+        this.scoreFunction = f_score;
+        this.speed = 20;
+        this.gameLoop = null;
 
-        for (var i = lenght - 1; i >= 0; i--) {
-            var f = new Food(0, 0, size);
+        for(let i = lenght - 1; i >= 0; i--) {
+            let f = new Food(0, 0, size);
             f.x = i;
             f.y = 0;
             this.snake.push(f);
         }
 
-        document.onkeydown = function (e) {
-            var key = e.keyCode;
+        document.onkeydown = function(e) {
+            let key = e.keyCode;
             //console.log(key);
 
-            if (key === 37 && this.dir !== "right") setTimeout(function () {
-                this.dir = "left";
-            }.bind(this), 30);else if (key === 38 && this.dir !== "down") setTimeout(function () {
-                this.dir = "up";
-            }.bind(this), 30);else if (key === 39 && this.dir !== "left") setTimeout(function () {
-                this.dir = "right";
-            }.bind(this), 30);else if (key === 40 && this.dir !== "up") setTimeout(function () {
-                this.dir = "down";
-            }.bind(this), 30);else if (key === 27 && this.pausa === true) setTimeout(function () {
-                this.pausa = false;this.pausaMessage('hide');this.mainMusic.play();
-            }.bind(this), 30);else if (key === 27 && this.pausa === false) setTimeout(function () {
-                this.pausa = true;this.pausaMessage('show');this.mainMusic.pause();
-            }.bind(this), 30);
-            // TODO
-            if (key) e.preventDefault();
+            if(key === 37 && this.dir !== "right") setTimeout(function() {this.dir = "left"; }.bind(this), 30);
+            else if(key === 38 && this.dir !== "down") setTimeout(function() {this.dir = "up"; }.bind(this), 30);
+            else if(key === 39 && this.dir !== "left") setTimeout(function() {this.dir = "right"; }.bind(this), 30);
+            else if(key === 40 && this.dir !== "up") setTimeout(function() {this.dir = "down"; }.bind(this), 30);
+            else if(key === 27 && this.pausa === true) setTimeout(function() {this.pausa = false; f_pause('hide'); mainMusic.play();}.bind(this), 30);
+            else if(key === 27 && this.pausa === false) setTimeout(function() {this.pausa = true; f_pause('show'); mainMusic.pause();}.bind(this), 30);
+
+            if(key) e.preventDefault();
+
         }.bind(this);
+
+        this.food = new Food(this.w, this.h, this.size);
+
     }
 
-    _createClass(Snake, [{
-        key: "draw",
-        value: function draw(ctx) {
-            for (var i = 0; i < this.snake.lenght; i++) {
-                var s = this.snake[i];
-                ctx.fillStyle = s.color;
-                ctx.fillRect(s.x * this.size, s.y * this.size, this.size, this.size);
+    draw(ctx) {
+        for(let i = 0; i < this.snake.lenght; i++) {
+            let s = this.snake[i];
+            ctx.fillStyle = s.color;
+            ctx.fillRect(s.x * this.size, s.y * this.size, this.size, this.size);
+        }
+    }
+
+    update() {
+        let head_x = this.snake[0].x;
+        let head_y = this.snake[0].y;
+
+        // Directions
+        if(this.dir === "right") {
+            head_x++;
+        } else if(this.dir === "left") {
+            head_x--;
+        } else if(this.dir === "up") {
+            head_y--;
+        } else if(this.dir === "down") {
+            head_y++;
+        }
+
+        // Move
+        if(!this.pause) {
+            let tail = this.snake.pop();
+            tail.x = head_x;
+            tail.y = head_y;
+            this.snake.unshift(tail);
+        }
+
+        // Wall Collision
+        if(head_x >= (this.w / size) || head_x <= -1 || head_y >= this.h / size || head_y <= -1) {
+            if(this.over === 0) {
+                this.hitType = "wall";
+                this.gameover();
+            }
+            this.over++;
+        }
+
+        // Food collision
+        if(head_x === this.food.x && head_y === this.food.y) {
+            let coll = 1;
+            let color = this.food.color;
+            this.food = new Food(this.w, this.h, this.size);
+            let tail = {x: head_x, y:head_y};
+            this.snake.unshift(tail);
+            this.snake[0].color = color;
+            this.score += 10;
+            this.scoreFunction(this.score);
+
+            //Increase speed
+            if(this.speed <= 50) {
+                speed ++;
+            }
+
+            clearInterval(this.gameLoop);
+            this.gameLoop = setInterval(this.draw, 1000/speed);
+
+
+        } else {
+            //Check collision between snake parts
+            for(let j = 1; j < this.snake.length; j++) {
+                let s = this.snake[j];
+                if(head_x === s.x && head_y === s.y) {
+                    if(this.over === 0) {
+                        this.hitType = "self";
+                        this.gameover();
+                    }
+                }
+                this.over ++;
             }
         }
-    }, {
-        key: "update",
-        value: function update() {
-            var head_x = this.snake[0].x;
-            var head_y = this.snake[0].y;
-        }
-    }]);
+    }
 
-    return Snake;
-}();
+    gameover() {
+        this.gameOverCallBack();
+    }
+}
+*/
+
+/*
+ * CONSTANTS
+ */
+var snakeDim = 10;
+var size = 10;
+
+/*
+ * Audio
+ */
+var mainMusic = null;
+var foodMusic = null;
+var gameOverMusic = null;
+var loadingField = null;
+
+/*
+ * HTML elements
+ */
+var gameMenu = null;
+var startButton = $('#start');
+
+/*
+ * Canvas elements
+ */
+var canvas = null;
+var ctx = null;
+var w = null;
+var h = null;
+
+/**
+ * Initialize global variables and preload data
+ */
+function init() {
+
+    // Get elements
+    mainMusic = document.getElementById('main-music');
+    foodMusic = document.getElementById('game-over-music');
+    gameOverMusic = document.getElementById('food-music');
+    loadingField = document.getElementById('loading');
+    gameMenu = $('#game-menu');
+    startButton = $('#start');
+
+    // Preloading data
+    var files = [mainMusic, foodMusic, gameOverMusic];
+    var counter = 0;
+    for (var i = 0; i < files.length; i++) {
+        files[i].addEventListener('loadeddata', function () {
+            counter++;
+            var percent = Math.floor(counter / files.length * 100);
+            loadingField.innerHTML = 'Loading ' + percent + '%';
+            if (percent === 100) {
+                startButton.toggle();
+            }
+        });
+    }
+
+    // Load canvas
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var w = canvas.width;
+    var h = canvas.height;
+
+    setListeners();
+}
+
+/**
+ * Set listeners on HTML elemennts
+ */
+function setListeners() {
+    startButton.click(function (e) {
+        e.preventDefault();
+        startGame();
+    });
+}
+
+/**
+ * Start snake game
+ */
+function startGame() {
+
+    // Game variables
+    var speed = 20;
+    var direction = '';
+    var pause = false;
+    var snake = [];
+
+    // Start music and hide menu
+    mainMusic.play();
+    gameMenu.toggle();
+
+    cleanCanvas();
+
+    var food = new Food(w, h, size);
+
+    // Init snake
+    for (var i = snakeDim - 1; i >= 0; i--) {
+        var f = new Food(1, 1, size);
+        f.x = i;
+        f.y = 0;
+        snake.push(f);
+    }
+
+    //Set direction listeners
+    document.onkeydown = function (e) {
+        var key = e.keyCode;
+
+        if (key === 37 && direction !== "right") setTimeout(function () {
+            direction = "left";
+        }, 30);else if (key === 38 && direction !== "down") setTimeout(function () {
+            direction = "up";
+        }, 30);else if (key === 39 && direction !== "left") setTimeout(function () {
+            direction = "right";
+        }, 30);else if (key === 40 && direction !== "up") setTimeout(function () {
+            direction = "down";
+        }, 30);else if (key === 27 && pause === true) setTimeout(function () {
+            pause = false;
+            //pausaMessage('hide');
+            mainMusic.play();
+        }, 30);else if (key === 27 && pause === false) setTimeout(function () {
+            pause = true;
+            //pausaMessage('show');
+            mainMusic.pause();
+        }, 30);
+
+        if (key) e.preventDefault();
+    };
+}
+
+/**
+ * Paint canvas in black
+ */
+function cleanCanvas() {
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, w, h);
+}
+
+/**
+ * Draw snake on canvas
+ */
+function drawSnake(snake) {
+    snake.forEach(function (piece, index) {
+        ctx.fillStyle = piece.color;
+        ctx.fillRect(piece.x * size, food.y * size, size, size);
+    });
+}
+
+/**
+ * Food Class
+ */
 
 var Food = function () {
     function Food(w, h, size) {
         _classCallCheck(this, Food);
 
-        this.color = __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__["a" /* default */].nastyColor;
-        this.x = Math.round(Math.random() * (w - size) / size);
-        this.y = Math.round(Math.random() * (h - size) / size);
+        this._color = __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__["a" /* default */].nastyColor;
+        this._x = Math.round(Math.random() * (w - size) / size);
+        this._y = Math.round(Math.random() * (h - size) / size);
     }
 
+    /**
+     *
+     * @param ctx canvas 2d context
+     * @param size of the square
+     */
+
+
     _createClass(Food, [{
-        key: "draw",
+        key: 'draw',
         value: function draw(ctx, size) {
             ctx.fillStyle = this.color;
-            ctx.fillRect(this.x * size, this.y * size, size, size);
+            ctx.fillRect(this._x * size, this._y * size, size, size);
+        }
+    }, {
+        key: 'x',
+        get: function get() {
+            return this._x;
+        },
+        set: function set(value) {
+            this._x = value;
+        }
+    }, {
+        key: 'y',
+        get: function get() {
+            return this._y;
+        },
+        set: function set(value) {
+            this._y = value;
+        }
+    }, {
+        key: 'color',
+        get: function get() {
+            return this._color;
+        },
+        set: function set(value) {
+            this._color = value;
         }
     }]);
 
     return Food;
 }();
-
-var snake = new SnakeGame();
-snake.start();
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 39:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(10);
-
-
-/***/ }),
-
-/***/ 47:
+/***/ 3:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10566,6 +10801,14 @@ var NastyUtil = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (NastyUtil);
+
+/***/ }),
+
+/***/ 40:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(11);
+
 
 /***/ })
 

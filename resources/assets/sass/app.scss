@@ -130,7 +130,7 @@
   height: 680px;
   padding-left: 0;
   padding-right: 0;
-  //border: 1px solid;
+  border: 1px solid black;
 }
 .data-frame {
 
@@ -138,7 +138,7 @@
 .info-frame {
   height: 200px;
 }
-.info-frame, .game-frame, .data-frame, .nasty-button-container
+.info-frame, .data-frame, .nasty-button-container
 {
   border: 1px solid;
 }

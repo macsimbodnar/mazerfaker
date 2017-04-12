@@ -10388,8 +10388,8 @@ var startButton = $('#start');
  */
 var canvas = null;
 var ctx = null;
-var w = null;
-var h = null;
+var w = 0;
+var h = 0;
 
 /*
  * Game elements
@@ -10403,6 +10403,7 @@ var over = 0;
 var hitType = '';
 var score = 0;
 var gameLoopInterval = null;
+var wallCollision = false;
 
 /**
  * Initialize global variables and preload data
@@ -10433,8 +10434,11 @@ function init() {
 
     // Load canvas
     var gameFrame = document.getElementById('snake-game');
-    w = gameFrame.offsetWidth; //canvas.width;
-    h = gameFrame.offsetHeight; //canvas.height;
+    var frameW = gameFrame.offsetWidth; //canvas.width;
+    var frameH = gameFrame.offsetHeight; //canvas.height;
+    w = Math.floor(frameW / SIZE) * SIZE;
+    h = Math.floor(frameH / SIZE) * SIZE;
+
     canvas = document.getElementById("canvas");
     canvas.height = h;
     canvas.width = w;
@@ -10450,6 +10454,11 @@ function setListeners() {
     startButton.click(function (e) {
         e.preventDefault();
         startGame();
+    });
+
+    $('#wall-collision').change(function () {
+        console.log('funziono');
+        wallCollision = $(this).is(':checked');
     });
 }
 
@@ -10518,17 +10527,32 @@ function updateSnake() {
     snake.unshift(tail);
 
     // Check wall collision
-    if (head_x >= w / SIZE || head_x < 0 || head_y >= h / SIZE || head_y < 0) {
+    if (wallCollision) {
 
-        if (over === 0) {
-            hitType = 'wall';
-            gameover();
+        if (head_x >= w / SIZE || head_x < 0 || head_y >= h / SIZE || head_y < 0) {
+
+            if (over === 0) {
+                hitType = 'wall';
+                gameover();
+            }
+
+            over++;
         }
+    } else {
 
-        over++;
+        if (head_x >= w / SIZE) {
+            snake[0].x = 0;
+        } else if (head_x < 0) {
+            snake[0].x = w / SIZE;
+        }
+        if (head_y >= h / SIZE) {
+            snake[0].y = 0;
+        } else if (head_y < 0) {
+            snake[0].y = h / SIZE;
+        }
     }
 
-    // Food collision
+    // Check food collision
     if (head_x === food.x && head_y === food.y) {
         snake.unshift(food);
         score += FOOD_VALUE;
@@ -10631,6 +10655,7 @@ function cleanCanvas() {
 function gameover() {
     musicStop();
     musicEffectPlay('game-over');
+    clearInterval(gameLoopInterval);
 }
 
 /**

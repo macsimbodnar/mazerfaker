@@ -57,5 +57,6 @@ DATA
 @endsection
 
 @section('info-frame')
-INFO
+    Collision
+    <input type="checkbox" id="wall-collision" />
 @endsection

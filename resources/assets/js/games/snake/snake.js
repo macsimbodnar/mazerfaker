@@ -50,8 +50,8 @@ let startButton = $('#start');
  */
 let canvas = null;
 let ctx = null;
-let w = null;
-let h = null;
+let w = 0;
+let h = 0;
 
 
 /*
@@ -66,6 +66,7 @@ let over = 0;
 let hitType = '';
 let score = 0;
 let gameLoopInterval = null;
+let wallCollision = false;
 
 
 /**
@@ -97,8 +98,11 @@ function init() {
 
     // Load canvas
     let gameFrame = document.getElementById('snake-game');
-    w = gameFrame.offsetWidth;//canvas.width;
-    h = gameFrame.offsetHeight;//canvas.height;
+    let frameW = gameFrame.offsetWidth;//canvas.width;
+    let frameH = gameFrame.offsetHeight;//canvas.height;
+    w = Math.floor(frameW / SIZE) * SIZE;
+    h = Math.floor(frameH / SIZE) * SIZE;
+
     canvas = document.getElementById("canvas");
     canvas.height = h;
     canvas.width = w;
@@ -115,6 +119,11 @@ function setListeners() {
     startButton.click(function (e) {
         e.preventDefault();
         startGame();
+    });
+
+    $('#wall-collision').change(function () {
+        console.log('funziono');
+        wallCollision = $(this).is(':checked');
     });
 }
 
@@ -206,18 +215,35 @@ function updateSnake() {
 
 
     // Check wall collision
-    if(head_x >= (w / SIZE) || head_x < 0 ||
-        head_y >= (h / SIZE) || head_y < 0) {
+    if(wallCollision) {
 
-        if(over === 0) {
-            hitType = 'wall';
-            gameover();
+        if (head_x >= (w / SIZE) || head_x < 0 ||
+            head_y >= (h / SIZE) || head_y < 0) {
+
+            if (over === 0) {
+                hitType = 'wall';
+                gameover();
+            }
+
+            over++;
         }
+    } else {
 
-        over ++;
+        if (head_x >= (w / SIZE)) {
+            snake[0].x = 0;
+        } else if (head_x < 0) {
+            snake[0].x = (w / SIZE);
+        }
+        if (head_y >= (h / SIZE)) {
+            snake[0].y = 0;
+        } else if (head_y < 0) {
+            snake[0].y = (h / SIZE);
+        }
     }
 
-    // Food collision
+
+
+    // Check food collision
     if(head_x === food.x && head_y === food.y) {
         snake.unshift(food);
         score += FOOD_VALUE;
@@ -329,6 +355,7 @@ function cleanCanvas() {
 function gameover() {
     musicStop();
     musicEffectPlay('game-over');
+    clearInterval(gameLoopInterval);
 }
 
 

@@ -10352,10 +10352,20 @@ var SNAKE_DIM = 10;
 var SIZE = 10;
 var MAX_SPEED = 50;
 var FOOD_VALUE = 10;
+
 var LEFT = 'L';
 var RIGHT = 'R';
 var UP = 'U';
 var DOWN = 'D';
+
+var KEY_ESCAPE = 27;
+var KEY_LEFT = 37;
+var KEY_UP = 38;
+var KEY_RIGHT = 39;
+var KEY_DOWN = 40;
+var KEY_M = 77;
+var KEY_P = 80;
+var KEY_S = 83;
 
 /*
  * Audio
@@ -10364,6 +10374,8 @@ var mainMusic = null;
 var foodMusic = null;
 var gameOverMusic = null;
 var loadingField = null;
+var isPlaying = false;
+var soundOn = true;
 
 /*
  * HTML elements
@@ -10399,8 +10411,8 @@ function init() {
 
     // Get elements
     mainMusic = document.getElementById('main-music');
-    foodMusic = document.getElementById('game-over-music');
-    gameOverMusic = document.getElementById('food-music');
+    foodMusic = document.getElementById('food-music');
+    gameOverMusic = document.getElementById('game-over-music');
     loadingField = document.getElementById('loading');
     gameMenu = $('#game-menu');
     startButton = $('#start');
@@ -10447,7 +10459,7 @@ function setListeners() {
 function startGame() {
 
     // Start music and hide menu
-    mainMusic.play();
+    musicPlay();
     gameMenu.toggle();
 
     cleanCanvas();
@@ -10461,30 +10473,28 @@ function startGame() {
     document.onkeydown = function (e) {
         var key = e.keyCode;
 
-        if (key === 37 && direction !== RIGHT) setTimeout(function () {
+        if (key === KEY_LEFT && direction !== RIGHT) setTimeout(function () {
             direction = LEFT;
             //console.log('p - L' + key);
-        }, 30);else if (key === 38 && direction !== DOWN) setTimeout(function () {
+        }, 30);else if (key === KEY_UP && direction !== DOWN) setTimeout(function () {
             direction = UP;
             //console.log('p - U' + key);
-        }, 30);else if (key === 39 && direction !== LEFT) setTimeout(function () {
+        }, 30);else if (key === KEY_RIGHT && direction !== LEFT) setTimeout(function () {
             direction = RIGHT;
             //console.log('p - R' + key);
-        }, 30);else if (key === 40 && direction !== UP) setTimeout(function () {
+        }, 30);else if (key === KEY_DOWN && direction !== UP) setTimeout(function () {
             direction = DOWN;
             //console.log('p - D' + key);
-        }, 30);else if (key === 27 && pause === true) setTimeout(function () {
-            pause = false;
-            //pausaMessage('hide');
-            mainMusic.play();
-        }, 30);else if (key === 27 && pause === false) setTimeout(function () {
-            pause = true;
-            //pausaMessage('show');
-            mainMusic.pause();
+        }, 30);else if (key === KEY_ESCAPE) setTimeout(function () {
+            pause = !pause;
+            musicToggle();
+        }, 30);else if (key === KEY_M) setTimeout(function () {
+            musicStop();
+        }, 30);else if (key === KEY_S) setTimeout(function () {
+            soundToggle();
         }, 30);
 
         if (key) e.preventDefault();
-        //console.log(direction);
     };
 
     reset();
@@ -10502,12 +10512,10 @@ function updateSnake() {
     if (direction === RIGHT) head_x++;else if (direction === LEFT) head_x--;else if (direction === UP) head_y--;else if (direction === DOWN) head_y++;
 
     // Move snake
-    if (!pause) {
-        var tail = snake.pop();
-        tail.x = head_x;
-        tail.y = head_y;
-        snake.unshift(tail);
-    }
+    var tail = snake.pop();
+    tail.x = head_x;
+    tail.y = head_y;
+    snake.unshift(tail);
 
     // Check wall collision
     if (head_x >= w / SIZE || head_x < 0 || head_y >= h / SIZE || head_y < 0) {
@@ -10528,7 +10536,7 @@ function updateSnake() {
         food = new Food();
         foodMusic.pause();
         foodMusic.currentTime = 0;
-        foodMusic.play();
+        musicEffectPlay('food');
 
         // Increase snake speed
         if (speed <= MAX_SPEED) speed++;
@@ -10554,10 +10562,12 @@ function updateSnake() {
  * Main game loop
  */
 function mainLoop() {
-    cleanCanvas();
-    drawSnake();
-    updateSnake();
-    food.draw();
+    if (!pause) {
+        cleanCanvas();
+        drawSnake();
+        updateSnake();
+        food.draw();
+    }
 }
 
 /**
@@ -10574,7 +10584,7 @@ function reset() {
     initSnake();
 
     mainMusic.currentTime = 0;
-    mainMusic.play();
+    musicPlay();
 
     if (typeof gameLoopInterval !== 'undefined') {
         clearInterval(gameLoopInterval);
@@ -10598,14 +10608,6 @@ function initSnake() {
 }
 
 /**
- * Paint canvas in black
- */
-function cleanCanvas() {
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, w, h);
-}
-
-/**
  * Draw snake on canvas
  */
 function drawSnake() {
@@ -10616,11 +10618,19 @@ function drawSnake() {
 }
 
 /**
+ * Paint canvas in black
+ */
+function cleanCanvas() {
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, w, h);
+}
+
+/**
  * Game over function
  */
 function gameover() {
-    // TODO
-    console.log('game over');
+    musicStop();
+    musicEffectPlay('game-over');
 }
 
 /**
@@ -10629,6 +10639,63 @@ function gameover() {
 function updateScore() {}
 // TODO
 
+
+/**
+ * Play game theme music
+ */
+function musicPlay() {
+    mainMusic.play();
+    isPlaying = true;
+}
+
+/**
+ * Pause game theme music
+ */
+function musicStop() {
+    mainMusic.pause();
+    isPlaying = false;
+}
+
+/**
+ * Pause game music theme is is played and vice versa
+*/
+function musicToggle() {
+    if (isPlaying) {
+        mainMusic.pause();
+        isPlaying = false;
+    } else {
+        mainMusic.play();
+        isPlaying = true;
+    }
+}
+
+/**
+ * Play different effect sounds
+ */
+function musicEffectPlay(type) {
+    if (type === 'food') {
+        foodMusic.play();
+    } else if (type === 'game-over') {
+        gameOverMusic.play();
+    }
+}
+
+/**
+ * Mute all sounds if not muted and vice versa
+ */
+function soundToggle() {
+    if (soundOn) {
+        foodMusic.muted = true;
+        mainMusic.muted = true;
+        gameOverMusic.muted = true;
+        soundOn = false;
+    } else {
+        foodMusic.muted = false;
+        mainMusic.muted = false;
+        gameOverMusic.muted = false;
+        soundOn = true;
+    }
+}
 
 /**
  * Food Class
@@ -10682,6 +10749,11 @@ var Food = function () {
 
     return Food;
 }();
+
+/******************************
+ *       START SCRIPT         *
+ ******************************/
+
 
 $(document).ready(function () {
     init();

@@ -11,10 +11,20 @@ const SNAKE_DIM = 10;
 const SIZE = 10;
 const MAX_SPEED = 50;
 const FOOD_VALUE = 10;
+
 const LEFT = 'L';
 const RIGHT = 'R';
 const UP = 'U';
 const DOWN = 'D';
+
+const KEY_ESCAPE = 27;
+const KEY_LEFT = 37;
+const KEY_UP = 38;
+const KEY_RIGHT = 39;
+const KEY_DOWN = 40;
+const KEY_M = 77;
+const KEY_P = 80;
+const KEY_S = 83;
 
 
 /*
@@ -24,6 +34,8 @@ let mainMusic = null;
 let foodMusic = null;
 let gameOverMusic = null;
 let loadingField = null;
+let isPlaying = false;
+let soundOn = true;
 
 
 /*
@@ -63,8 +75,8 @@ function init() {
 
     // Get elements
     mainMusic = document.getElementById('main-music');
-    foodMusic = document.getElementById('game-over-music');
-    gameOverMusic = document.getElementById('food-music');
+    foodMusic = document.getElementById('food-music');
+    gameOverMusic = document.getElementById('game-over-music');
     loadingField = document.getElementById('loading');
     gameMenu = $('#game-menu');
     startButton = $('#start');
@@ -113,7 +125,7 @@ function setListeners() {
 function startGame() {
 
     // Start music and hide menu
-    mainMusic.play();
+    musicPlay();
     gameMenu.toggle();
 
     cleanCanvas();
@@ -127,41 +139,41 @@ function startGame() {
     document.onkeydown = function(e) {
         let key = e.keyCode;
 
-        if(key === 37 && direction !== RIGHT)
+        if(key === KEY_LEFT && direction !== RIGHT)
             setTimeout(function() {
                 direction = LEFT;
                 //console.log('p - L' + key);
             }, 30);
-        else if(key === 38 && direction !== DOWN)
+        else if(key === KEY_UP && direction !== DOWN)
             setTimeout(function() {
                 direction = UP;
                 //console.log('p - U' + key);
             }, 30);
-        else if(key === 39 && direction !== LEFT)
+        else if(key === KEY_RIGHT && direction !== LEFT)
             setTimeout(function() {
                 direction = RIGHT;
                 //console.log('p - R' + key);
             }, 30);
-        else if(key === 40 && direction !== UP)
+        else if(key === KEY_DOWN && direction !== UP)
             setTimeout(function() {
                 direction = DOWN;
                 //console.log('p - D' + key);
             }, 30);
-        else if(key === 27 && pause === true)
+        else if(key === KEY_ESCAPE)
             setTimeout(function() {
-                pause = false;
-                //pausaMessage('hide');
-                mainMusic.play();
+                pause = !pause;
+                musicToggle();
             }, 30);
-        else if(key === 27 && pause === false)
+        else if(key === KEY_M)
             setTimeout(function() {
-                pause = true;
-                //pausaMessage('show');
-                mainMusic.pause();
+                musicStop();
+            }, 30);
+        else if(key === KEY_S)
+            setTimeout(function() {
+                soundToggle();
             }, 30);
 
         if(key) e.preventDefault();
-        //console.log(direction);
     };
 
     reset();
@@ -187,12 +199,11 @@ function updateSnake() {
         head_y ++;
 
     // Move snake
-    if(!pause) {
-        let tail = snake.pop();
-        tail.x = head_x;
-        tail.y = head_y;
-        snake.unshift(tail);
-    }
+    let tail = snake.pop();
+    tail.x = head_x;
+    tail.y = head_y;
+    snake.unshift(tail);
+
 
     // Check wall collision
     if(head_x >= (w / SIZE) || head_x < 0 ||
@@ -214,7 +225,7 @@ function updateSnake() {
         food = new Food();
         foodMusic.pause();
         foodMusic.currentTime = 0;
-        foodMusic.play();
+        musicEffectPlay('food');
 
 
         // Increase snake speed
@@ -237,10 +248,6 @@ function updateSnake() {
             }
         }
     }
-
-
-
-
 }
 
 
@@ -248,10 +255,12 @@ function updateSnake() {
  * Main game loop
  */
 function mainLoop() {
-    cleanCanvas();
-    drawSnake();
-    updateSnake();
-    food.draw();
+    if(!pause) {
+        cleanCanvas();
+        drawSnake();
+        updateSnake();
+        food.draw();
+    }
 }
 
 
@@ -269,7 +278,7 @@ function reset() {
     initSnake();
 
     mainMusic.currentTime = 0;
-    mainMusic.play();
+    musicPlay();
 
     if(typeof  gameLoopInterval !== 'undefined') {
         clearInterval(gameLoopInterval);
@@ -295,15 +304,6 @@ function initSnake() {
 
 
 /**
- * Paint canvas in black
- */
-function cleanCanvas() {
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, w, h);
-}
-
-
-/**
  * Draw snake on canvas
  */
 function drawSnake() {
@@ -315,11 +315,20 @@ function drawSnake() {
 
 
 /**
+ * Paint canvas in black
+ */
+function cleanCanvas() {
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, w, h);
+}
+
+
+/**
  * Game over function
  */
 function gameover() {
-    // TODO
-    console.log('game over');
+    musicStop();
+    musicEffectPlay('game-over');
 }
 
 
@@ -328,6 +337,68 @@ function gameover() {
  */
 function updateScore() {
     // TODO
+}
+
+
+/**
+ * Play game theme music
+ */
+function musicPlay() {
+    mainMusic.play();
+    isPlaying = true;
+}
+
+
+/**
+ * Pause game theme music
+ */
+function musicStop() {
+    mainMusic.pause();
+    isPlaying = false;
+}
+
+
+/**
+ * Pause game music theme is is played and vice versa
+*/
+function musicToggle() {
+    if(isPlaying) {
+        mainMusic.pause();
+        isPlaying = false;
+    } else {
+        mainMusic.play();
+        isPlaying = true;
+    }
+}
+
+
+/**
+ * Play different effect sounds
+ */
+function musicEffectPlay(type) {
+    if(type === 'food') {
+        foodMusic.play();
+    } else if(type === 'game-over') {
+        gameOverMusic.play();
+    }
+}
+
+
+/**
+ * Mute all sounds if not muted and vice versa
+ */
+function soundToggle() {
+    if(soundOn) {
+        foodMusic.muted = true;
+        mainMusic.muted = true;
+        gameOverMusic.muted = true;
+        soundOn = false;
+    } else {
+        foodMusic.muted = false;
+        mainMusic.muted = false;
+        gameOverMusic.muted = false;
+        soundOn = true;
+    }
 }
 
 
@@ -377,6 +448,10 @@ class Food {
     }
 }
 
+
+/******************************
+ *       START SCRIPT         *
+ ******************************/
 $(document).ready(function () {
     init();
 });

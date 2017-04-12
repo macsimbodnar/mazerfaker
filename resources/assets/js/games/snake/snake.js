@@ -5,222 +5,17 @@
 import NastyUtil from '../../export/NastyUtil'
 
 /*
-class SnakeGame {
-    constructor() {
-        this.snakeDim = 10;
-        this.canvas = document.getElementById("canvas");
-        this.w = this.canvas.width;
-        this.h = this.canvas.height;
-        this.ctx = this.canvas.getContext("2d");
-        this.mainMusic = document.getElementById('main-music');
-        this.foodMusic = document.getElementById('game-over-music');
-        this.gameOverMusic = document.getElementById('food-music');
-        this.loadingField = document.getElementById('loading');
-        this.gameMenu = $('#game-menu');
-        this.startButton = $('#start');
-        this.setListeners();
-
-        //Custom funny gameover messages
-        this.msgsSelf = [];
-        this.msgsSelf[0] = "Hahaha morto di fame! Cazzo ti mangi da solo?";
-        this.msgsSelf[1] = "Ti piaceee il serpente eeeeh?";
-        this.msgsSelf[2] = "Black salami";
-        this.msgsSelf[3] = "Do you have Autophagia?";
-
-        this.msgsWall = [];
-        this.msgsWall[0] = "Scarso!";
-        this.msgsWall[1] = "Torna a lavorare! (o)(o)";
-        this.msgsWall[2] = "8=========D";
-        this.msgsWall[3] = "MIIIII che capata!";
-        this.msgsWall[4] = "Ma quanto fai schifo?";
-    }
-
-    start() {
-        let files = [this.mainMusic, this.foodMusic, this.gameOverMusic];
-        let counter = 0;
-        for(let i = 0; i < files.length; i++) {
-            files[i].addEventListener('loadeddata', function () {
-                counter++;
-                let percent = Math.floor((counter / files.length) * 100);
-                this.loadingField.innerHTML = 'Loading ' + percent + '%';
-                if(percent === 100) {
-                    this.startButton.toggle();
-                }
-            }.bind(this));
-        }
-    }
-
-    setListeners() {
-        this.startButton.click(function (e) {
-            this.runGame();
-        }.bind(this));
-    }
-
-    runGame() {
-        this.gameMenu.toggle();
-        this.mainMusic.play();
-    }
-
-    init() {
-        let snake,
-            size = 10,
-            speed = 20,
-            dir,
-            game_loop,
-            over = 0,
-            hitType,
-            color,
-            pausa = false;
-
-        //let f = new Food(this.snakeDim, this.snakeDim, size);
-    }
-
-    initCanvas() {
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, this.w, this.h);
-    }
-
-    pausaMessage (command) {
-        if(command === 'hide') {
-            $('#pausa').hide();
-        } else {
-            $('#pausa').show();
-        }
-    }
-
-
-}
-
-class Snake {
-
-    constructor(lenght, size, w, h, mainMusic, f_pause, f_gameover, f_score) {
-        this.size = size;
-        this.lenght = lenght;
-        this.snake = [];
-        this.dir = null;
-        this.pause = false;
-        this.w = w;
-        this.h = h;
-        this.over = 0;
-        this.hitType = null;
-        this.gameOverCallBack = f_gameover;
-        this.score = 0;
-        this.scoreFunction = f_score;
-        this.speed = 20;
-        this.gameLoop = null;
-
-        for(let i = lenght - 1; i >= 0; i--) {
-            let f = new Food(0, 0, size);
-            f.x = i;
-            f.y = 0;
-            this.snake.push(f);
-        }
-
-        document.onkeydown = function(e) {
-            let key = e.keyCode;
-            //console.log(key);
-
-            if(key === 37 && this.dir !== "right") setTimeout(function() {this.dir = "left"; }.bind(this), 30);
-            else if(key === 38 && this.dir !== "down") setTimeout(function() {this.dir = "up"; }.bind(this), 30);
-            else if(key === 39 && this.dir !== "left") setTimeout(function() {this.dir = "right"; }.bind(this), 30);
-            else if(key === 40 && this.dir !== "up") setTimeout(function() {this.dir = "down"; }.bind(this), 30);
-            else if(key === 27 && this.pausa === true) setTimeout(function() {this.pausa = false; f_pause('hide'); mainMusic.play();}.bind(this), 30);
-            else if(key === 27 && this.pausa === false) setTimeout(function() {this.pausa = true; f_pause('show'); mainMusic.pause();}.bind(this), 30);
-
-            if(key) e.preventDefault();
-
-        }.bind(this);
-
-        this.food = new Food(this.w, this.h, this.size);
-
-    }
-
-    draw(ctx) {
-        for(let i = 0; i < this.snake.lenght; i++) {
-            let s = this.snake[i];
-            ctx.fillStyle = s.color;
-            ctx.fillRect(s.x * this.size, s.y * this.size, this.size, this.size);
-        }
-    }
-
-    update() {
-        let head_x = this.snake[0].x;
-        let head_y = this.snake[0].y;
-
-        // Directions
-        if(this.dir === "right") {
-            head_x++;
-        } else if(this.dir === "left") {
-            head_x--;
-        } else if(this.dir === "up") {
-            head_y--;
-        } else if(this.dir === "down") {
-            head_y++;
-        }
-
-        // Move
-        if(!this.pause) {
-            let tail = this.snake.pop();
-            tail.x = head_x;
-            tail.y = head_y;
-            this.snake.unshift(tail);
-        }
-
-        // Wall Collision
-        if(head_x >= (this.w / size) || head_x <= -1 || head_y >= this.h / size || head_y <= -1) {
-            if(this.over === 0) {
-                this.hitType = "wall";
-                this.gameover();
-            }
-            this.over++;
-        }
-
-        // Food collision
-        if(head_x === this.food.x && head_y === this.food.y) {
-            let coll = 1;
-            let color = this.food.color;
-            this.food = new Food(this.w, this.h, this.size);
-            let tail = {x: head_x, y:head_y};
-            this.snake.unshift(tail);
-            this.snake[0].color = color;
-            this.score += 10;
-            this.scoreFunction(this.score);
-
-            //Increase speed
-            if(this.speed <= 50) {
-                speed ++;
-            }
-
-            clearInterval(this.gameLoop);
-            this.gameLoop = setInterval(this.draw, 1000/speed);
-
-
-        } else {
-            //Check collision between snake parts
-            for(let j = 1; j < this.snake.length; j++) {
-                let s = this.snake[j];
-                if(head_x === s.x && head_y === s.y) {
-                    if(this.over === 0) {
-                        this.hitType = "self";
-                        this.gameover();
-                    }
-                }
-                this.over ++;
-            }
-        }
-    }
-
-    gameover() {
-        this.gameOverCallBack();
-    }
-}
-*/
-
-/*
  * CONSTANTS
  */
-const snakeDim = 10;
-const size = 10;
+const SNAKE_DIM = 10;
+const SIZE = 10;
+const MAX_SPEED = 50;
+const FOOD_VALUE = 10;
+const LEFT = 'L';
+const RIGHT = 'R';
+const UP = 'U';
+const DOWN = 'D';
+
 
 /*
  * Audio
@@ -245,6 +40,20 @@ let canvas = null;
 let ctx = null;
 let w = null;
 let h = null;
+
+
+/*
+ * Game elements
+ */
+let direction = '';
+let pause = false;
+let speed = 20;
+let snake = [];
+let food = null;
+let over = 0;
+let hitType = '';
+let score = 0;
+let gameLoopInterval = null;
 
 
 /**
@@ -275,10 +84,10 @@ function init() {
     }
 
     // Load canvas
-    let canvas = document.getElementById("canvas");
-    let ctx = canvas.getContext("2d");
-    let w = canvas.width;
-    let h = canvas.height;
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+    w = canvas.width;
+    h = canvas.height;
 
     setListeners();
 }
@@ -300,47 +109,36 @@ function setListeners() {
  */
 function startGame() {
 
-    // Game variables
-    let speed = 20;
-    let direction = '';
-    let pause = false;
-    let snake = [];
-
     // Start music and hide menu
     mainMusic.play();
     gameMenu.toggle();
 
     cleanCanvas();
 
-    let food = new Food(w, h, size);
+    food = new Food();
 
     // Init snake
-    for(let i = snakeDim -1; i >= 0; i--) {
-        let f = new Food(1, 1, size);
-        f.x = i;
-        f.y = 0;
-        snake.push(f);
-    }
+    initSnake();
 
     //Set direction listeners
     document.onkeydown = function(e) {
         let key = e.keyCode;
 
-        if(key === 37 && direction !== "right")
+        if(key === 37 && direction !== RIGHT)
             setTimeout(function() {
-                direction = "left";
+                direction = LEFT;
             }, 30);
-        else if(key === 38 && direction !== "down")
+        else if(key === 38 && direction !== DOWN)
             setTimeout(function() {
-                direction = "up";
+                direction = UP;
             }, 30);
-        else if(key === 39 && direction !== "left")
+        else if(key === 39 && direction !== LEFT)
             setTimeout(function() {
-                direction = "right";
+                direction = RIGHT;
             }, 30);
-        else if(key === 40 && direction !== "up")
+        else if(key === 40 && direction !== UP)
             setTimeout(function() {
-                direction = "down";
+                direction = DOWN;
             }, 30);
         else if(key === 27 && pause === true)
             setTimeout(function() {
@@ -359,6 +157,133 @@ function startGame() {
 
     };
 
+    reset();
+}
+
+
+/**
+ * Update snake position
+ */
+function updateSnake() {
+
+    let head_x = snake[0].x;
+    let head_y = snake[0].y;
+
+    // Check direction
+    if(direction === RIGHT)
+        head_x ++;
+    else if(direction === LEFT)
+        head_x --;
+    else if(direction === UP)
+        head_y --;
+    else if(direction === DOWN)
+        head_y ++;
+
+    // Move snake
+    if(!pause) {
+        let tail = snake.pop();
+        tail.x = head_x;
+        tail.y = head_y;
+        snake.unshift(tail);
+    }
+
+    // Check wall collision
+    if(head_x >= (w / SIZE) || head_x < 0 ||
+        head_y >= (h / SIZE) || head_y < 0) {
+
+        if(over === 0) {
+            hitType = 'wall';
+            gameover();
+        }
+
+        over ++;
+    }
+
+    // Food collision
+    if(head_x === food.x && head_y === food.y) {
+        let coll = 1;
+        snake.unshift(food);
+        score += FOOD_VALUE;
+        updateScore();
+        food = new Food();
+        foodMusic.pause();
+        foodMusic.currentTime = 0;
+        foodMusic.play();
+
+
+        // Increase snake speed
+        if(speed <= MAX_SPEED)
+            speed ++;
+
+        clearInterval(gameLoopInterval);
+        gameLoopInterval = setInterval(mainLoop, 1000/speed);
+
+    } else {
+        // Check collision between snake parts
+        for (let j = 1; j < snake.length; j++) {
+            let s = snake[j];
+            if(head_x === s.x && head_y === s.y) {
+                if(over === 0) {
+                    hitType = 'self';
+                    gameover();
+                }
+                over ++;
+            }
+        }
+    }
+
+
+
+
+}
+
+
+/**
+ * Main game loop
+ */
+function mainLoop() {
+    cleanCanvas();
+    drawSnake();
+    updateSnake();
+    food.draw();
+}
+
+
+/**
+ * Reset game
+ */
+function reset() {
+
+    direction = RIGHT;
+    over = 0;
+    speed = 20;
+    score = 0;
+
+    food = new Food();
+    initSnake();
+
+    mainMusic.currentTime = 0;
+    mainMusic.play();
+
+    if(typeof  gameLoopInterval !== 'undefined') {
+        clearInterval(gameLoopInterval);
+    }
+
+    gameLoopInterval = setInterval(mainLoop, 1000/speed);
+}
+
+
+/**
+ * Init snake
+ */
+function initSnake() {
+    snake = [];
+    for(let i = SNAKE_DIM -1; i >= 0; i--) {
+        let f = new Food();
+        f.x = i;
+        f.y = 0;
+        snake.push(f);
+    }
 }
 
 
@@ -374,11 +299,27 @@ function cleanCanvas() {
 /**
  * Draw snake on canvas
  */
-function drawSnake(snake) {
+function drawSnake() {
     snake.forEach(function(piece, index) {
         ctx.fillStyle = piece.color;
-        ctx.fillRect(piece.x * size, food.y * size, size, size);
+        ctx.fillRect(piece.x * SIZE, food.y * SIZE, SIZE, SIZE);
     });
+}
+
+
+/**
+ * Game over function
+ */
+function gameover() {
+    // todo
+}
+
+
+/**
+ * Update score on screen
+ */
+function updateScore() {
+    // todo
 }
 
 
@@ -387,21 +328,19 @@ function drawSnake(snake) {
  */
 class Food {
 
-    constructor(w, h, size) {
+    constructor() {
         this._color = NastyUtil.nastyColor;
-        this._x = Math.round(Math.random() * (w - size) / size);
-        this._y = Math.round(Math.random() * (h - size) / size);
+        this._x = Math.round(Math.random() * (w - SIZE) / SIZE);
+        this._y = Math.round(Math.random() * (h - SIZE) / SIZE);
     }
 
 
     /**
-     *
-     * @param ctx canvas 2d context
-     * @param size of the square
+     * Draw food on canvas
      */
-    draw(ctx, size) {
+    draw() {
         ctx.fillStyle = this.color;
-        ctx.fillRect(this._x * size, this._y * size, size, size);
+        ctx.fillRect(this._x * SIZE, this._y * SIZE, SIZE, SIZE);
     }
 
 
@@ -429,3 +368,5 @@ class Food {
         this._color = value;
     }
 }
+
+init();

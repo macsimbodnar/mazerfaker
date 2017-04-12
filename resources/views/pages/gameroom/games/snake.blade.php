@@ -8,13 +8,13 @@
 @endpush
 
 @section('game-frame')
+    <canvas id="canvas" class="canvas"></canvas>
 
     <div class="snake-game">
         <div class="pausa" id="pausa" hidden>
             <h4>{{ __('game.pause') }}</h4>
         </div>
 
-        <canvas id="canvas" class="canvas"></canvas>
 
         <div id="reMenu" hidden>
             <h1 id="title">{{ $game->name }}</h1>

@@ -10,8 +10,15 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('gameroom') }}">{{ __('navigation.games') }}</a>
+            </li>
+        </ul>
+
         <!-- Authentication Links -->
         <ul class="navbar-nav ml-auto">
+
             @if (Auth::guest())
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}">

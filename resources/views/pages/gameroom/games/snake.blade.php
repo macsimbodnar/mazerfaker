@@ -56,10 +56,23 @@
 @endsection
 
 @section('data-frame')
-DATA
+    <div class="score-row">
+        <h6>{{ __('game.score') }}</h6>
+        <h6 id="score">0</h6>
+    </div>
+    <div class="speed-row">
+        <h6>{{ __('game.speed') }}</h6>
+        <h6 id="speed">0</h6>
+    </div>
 @endsection
 
 @section('info-frame')
-    Collision
-    <input type="checkbox" id="wall-collision" />
+    <label for="wall-collision">
+        <h6>{{ __('game.wall-collision') }}</h6>
+    </label>
+    <input type="radio" id="wall-collision" />
+
+    <h6>{{ __('game.help-pause') }} - ESC</h6>
+    <h6>{{ __('game.mute-sound') }} - S</h6>
+    <h6>{{ __('game.mute-music') }} - M</h6>
 @endsection

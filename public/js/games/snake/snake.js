@@ -10385,6 +10385,8 @@ var startButton = null;
 var pauseMessage = null;
 var restartMenu = null;
 var restartButton = null;
+var scoreField = null;
+var speedField = null;
 
 /*
  * Canvas elements
@@ -10422,6 +10424,8 @@ function init() {
     pauseMessage = $('#pause');
     restartMenu = $('#restart-menu');
     restartButton = $('#restart');
+    scoreField = document.getElementById('score');
+    speedField = document.getElementById('speed');
 
     // Preloading data
     var files = [mainMusic, foodMusic, gameOverMusic];
@@ -10463,6 +10467,7 @@ function setListeners() {
 
     restartButton.click(function () {
         restartMenu.toggle();
+        score.innerHTML = '0';
         reset();
     });
 
@@ -10569,7 +10574,10 @@ function updateSnake() {
         musicEffectPlay('food');
 
         // Increase snake speed
-        if (speed <= MAX_SPEED) speed++;
+        if (speed <= MAX_SPEED) {
+            speed++;
+            speedField.innerHTML = speed;
+        }
 
         clearInterval(gameLoopInterval);
         gameLoopInterval = setInterval(mainLoop, 1000 / speed);
@@ -10605,6 +10613,8 @@ function reset() {
     direction = RIGHT;
     speed = 20;
     score = 0;
+
+    speedField.innerHTML = speed;
 
     food = new Food();
     initSnake();
@@ -10664,9 +10674,10 @@ function gameover() {
 /**
  * Update score on screen
  */
-function updateScore() {}
-// TODO
-
+function updateScore() {
+    score += FOOD_VALUE;
+    scoreField.innerHTML = score;
+}
 
 /**
  * Play game theme music

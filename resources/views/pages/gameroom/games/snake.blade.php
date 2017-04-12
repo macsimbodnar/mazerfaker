@@ -10,27 +10,30 @@
 @section('game-frame')
 
     <div id="snake-game" class="snake-game">
-        <div class="pausa" id="pausa" hidden>
-            <h4>{{ __('game.pause') }}</h4>
-        </div>
 
         <canvas id="canvas" class="canvas"></canvas>
 
-        <div id="reMenu" hidden>
-            <h1 id="title">{{ $game->name }}</h1>
-            <p id="game-over">{{ __('game.game-over') }}</p>
+        <div class="menu-container">
+            <div class="pausa" id="pause" >
+                <h4>{{ __('game.pause') }}</h4>
+            </div>
 
-            <a href="javascript: void(0)" id="restart" class="restart" >
-                {{ __('game.restart') }}
-            </a>
-        </div>
+            <div id="restart-menu" class="restart-menu">
+                <h1 id="title">{{ $game->name }}</h1>
+                <p id="game-over">{{ __('game.game-over') }}</p>
 
-        <div id="game-menu">
-            <h1 id="snake">{{ $game->name }}</h1>
-            <button id="start" class="start">
-                {{ __('game.start') }}
-            </button>
-            <p id="loading">{{ __('game.loading') }}...</p>
+                <button id="restart" class="btn btn-primary" >
+                    {{ __('game.restart') }}
+                </button>
+            </div>
+
+            <div id="game-menu">
+                <h1 id="snake">{{ $game->name }}</h1>
+                <p id="loading">{{ __('game.loading') }}...</p>
+                <button id="start" class="start btn btn-primary">
+                    {{ __('game.start') }}
+                </button>
+            </div>
         </div>
 
         <!-- Audio -->

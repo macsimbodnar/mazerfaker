@@ -10381,7 +10381,10 @@ var soundOn = true;
  * HTML elements
  */
 var gameMenu = null;
-var startButton = $('#start');
+var startButton = null;
+var pauseMessage = null;
+var restartMenu = null;
+var restartButton = null;
 
 /*
  * Canvas elements
@@ -10399,7 +10402,6 @@ var pause = false;
 var speed = 20;
 var snake = [];
 var food = null;
-var over = 0;
 var hitType = '';
 var score = 0;
 var gameLoopInterval = null;
@@ -10417,6 +10419,9 @@ function init() {
     loadingField = document.getElementById('loading');
     gameMenu = $('#game-menu');
     startButton = $('#start');
+    pauseMessage = $('#pause');
+    restartMenu = $('#restart-menu');
+    restartButton = $('#restart');
 
     // Preloading data
     var files = [mainMusic, foodMusic, gameOverMusic];
@@ -10456,8 +10461,12 @@ function setListeners() {
         startGame();
     });
 
+    restartButton.click(function () {
+        restartMenu.toggle();
+        reset();
+    });
+
     $('#wall-collision').change(function () {
-        console.log('funziono');
         wallCollision = $(this).is(':checked');
     });
 }
@@ -10497,6 +10506,7 @@ function startGame() {
         }, 30);else if (key === KEY_ESCAPE) setTimeout(function () {
             pause = !pause;
             musicToggle();
+            pauseMessage.toggle();
         }, 30);else if (key === KEY_M) setTimeout(function () {
             musicStop();
         }, 30);else if (key === KEY_S) setTimeout(function () {
@@ -10531,12 +10541,8 @@ function updateSnake() {
 
         if (head_x >= w / SIZE || head_x < 0 || head_y >= h / SIZE || head_y < 0) {
 
-            if (over === 0) {
-                hitType = 'wall';
-                gameover();
-            }
-
-            over++;
+            hitType = 'wall';
+            gameover();
         }
     } else {
 
@@ -10572,11 +10578,8 @@ function updateSnake() {
         for (var j = 1; j < snake.length; j++) {
             var s = snake[j];
             if (head_x === s.x && head_y === s.y) {
-                if (over === 0) {
-                    hitType = 'self';
-                    gameover();
-                }
-                over++;
+                hitType = 'self';
+                gameover();
             }
         }
     }
@@ -10600,7 +10603,6 @@ function mainLoop() {
 function reset() {
 
     direction = RIGHT;
-    over = 0;
     speed = 20;
     score = 0;
 
@@ -10656,6 +10658,7 @@ function gameover() {
     musicStop();
     musicEffectPlay('game-over');
     clearInterval(gameLoopInterval);
+    restartMenu.toggle();
 }
 
 /**

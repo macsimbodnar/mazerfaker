@@ -8,8 +8,14 @@
   border-width: 2px;
   border-color: gold;
 }
-.start {
-  display: none;
+.menu-container {
   position: absolute;
-  z-index: 999999999;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+
+  text-align: center;
+}
+.start, .pausa, .restart-menu {
+  display: none;
 }

@@ -10420,10 +10420,13 @@ function init() {
     }
 
     // Load canvas
+    var gameFrame = document.getElementById('snake-game');
+    w = gameFrame.offsetWidth; //canvas.width;
+    h = gameFrame.offsetHeight; //canvas.height;
     canvas = document.getElementById("canvas");
+    canvas.height = h;
+    canvas.width = w;
     ctx = canvas.getContext("2d");
-    w = canvas.width;
-    h = canvas.height;
 
     setListeners();
 }
@@ -10460,12 +10463,16 @@ function startGame() {
 
         if (key === 37 && direction !== RIGHT) setTimeout(function () {
             direction = LEFT;
+            //console.log('p - L' + key);
         }, 30);else if (key === 38 && direction !== DOWN) setTimeout(function () {
             direction = UP;
+            //console.log('p - U' + key);
         }, 30);else if (key === 39 && direction !== LEFT) setTimeout(function () {
             direction = RIGHT;
+            //console.log('p - R' + key);
         }, 30);else if (key === 40 && direction !== UP) setTimeout(function () {
             direction = DOWN;
+            //console.log('p - D' + key);
         }, 30);else if (key === 27 && pause === true) setTimeout(function () {
             pause = false;
             //pausaMessage('hide');
@@ -10477,6 +10484,7 @@ function startGame() {
         }, 30);
 
         if (key) e.preventDefault();
+        //console.log(direction);
     };
 
     reset();
@@ -10514,7 +10522,6 @@ function updateSnake() {
 
     // Food collision
     if (head_x === food.x && head_y === food.y) {
-        var coll = 1;
         snake.unshift(food);
         score += FOOD_VALUE;
         updateScore();
@@ -10585,6 +10592,7 @@ function initSnake() {
         var f = new Food();
         f.x = i;
         f.y = 0;
+        f.color = '#ffffff';
         snake.push(f);
     }
 }
@@ -10603,22 +10611,23 @@ function cleanCanvas() {
 function drawSnake() {
     snake.forEach(function (piece, index) {
         ctx.fillStyle = piece.color;
-        ctx.fillRect(piece.x * SIZE, food.y * SIZE, SIZE, SIZE);
+        ctx.fillRect(piece.x * SIZE, piece.y * SIZE, SIZE, SIZE);
     });
 }
 
 /**
  * Game over function
  */
-function gameover() {}
-// todo
-
+function gameover() {
+    // TODO
+    console.log('game over');
+}
 
 /**
  * Update score on screen
  */
 function updateScore() {}
-// todo
+// TODO
 
 
 /**
@@ -10674,7 +10683,9 @@ var Food = function () {
     return Food;
 }();
 
-init();
+$(document).ready(function () {
+    init();
+});
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),

@@ -132,7 +132,7 @@ function setListeners() {
 
     restartButton.click(function () {
         restartMenu.toggle();
-        score.innerHTML = '0';
+        scoreField.innerHTML = '0';
         reset();
     });
 

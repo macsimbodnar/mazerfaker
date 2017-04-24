@@ -99,10 +99,13 @@ function init() {
             counter++;
             let percent = Math.floor((counter / files.length) * 100);
             loadingField.innerHTML = 'Loading ' + percent + '%';
-            if (percent >= 100) {
-                startButton.toggle();
-            }
         });
+
+        files[0].addEventListener('canplay', function () {
+            loadingField.innerHTML = 'Loading 100%';
+            startButton.toggle();
+        });
+
     }
 
     // Load canvas

@@ -92,21 +92,19 @@ function init() {
     speedField = document.getElementById('speed');
 
     // Preloading data
-    let files = [mainMusic, foodMusic, gameOverMusic];
-    let counter = 0;
-    for(let i = 0; i < files.length; i++) {
-        files[i].addEventListener('loadeddata', function () {
-            counter++;
-            let percent = Math.floor((counter / files.length) * 100);
-            loadingField.innerHTML = 'Loading ' + percent + '%';
-        });
-
-        files[0].addEventListener('canplay', function () {
-            loadingField.innerHTML = 'Loading 100%';
-            startButton.toggle();
-        });
-
-    }
+    // let files = [mainMusic, foodMusic, gameOverMusic];
+    // let counter = 0;
+    // for(let i = 0; i < files.length; i++) {
+    //     files[i].addEventListener('loadeddata', function () {
+    //         counter++;
+    //         let percent = Math.floor((counter / files.length) * 100);
+    //         //loadingField.innerHTML = 'Loading ' + percent + '%';
+    //     });
+    //
+    //     files[i].addEventListener('error', function () {
+    //         console.log('Errore nel caricamento audio');
+    //     });
+    // }
 
     // Load canvas
     let gameFrame = document.getElementById('snake-game');
@@ -121,6 +119,8 @@ function init() {
     ctx = canvas.getContext("2d");
 
     setListeners();
+
+    startButton.toggle();
 }
 
 

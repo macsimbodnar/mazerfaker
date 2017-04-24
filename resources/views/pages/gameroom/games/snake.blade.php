@@ -29,7 +29,7 @@
 
             <div id="game-menu">
                 <h1 id="snake">{{ $game->name }}</h1>
-                <p id="loading">{{ __('game.loading') }}...</p>
+                {{--<p id="loading">{{ __('game.loading') }}...</p>--}}
                 <button id="start" class="start btn btn-primary">
                     {{ __('game.start') }}
                 </button>

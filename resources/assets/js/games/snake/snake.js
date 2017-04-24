@@ -99,7 +99,7 @@ function init() {
             counter++;
             let percent = Math.floor((counter / files.length) * 100);
             loadingField.innerHTML = 'Loading ' + percent + '%';
-            if (percent === 100) {
+            if (percent >= 100) {
                 startButton.toggle();
             }
         });

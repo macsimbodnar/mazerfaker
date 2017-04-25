@@ -2,6 +2,7 @@
  * Created by max on 10/07/16.
  */
 
+require('hammerjs');
 import NastyUtil from '../../export/NastyUtil'
 
 /*
@@ -202,6 +203,34 @@ function startGame() {
 
         if(key) e.preventDefault();
     };
+
+    // Set Hammerjs swap event listener
+    let hammertime = Hammer(canvas);
+
+    // Serve per abilitare le direzioni up e down dello swipe
+    hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+
+    hammertime.on("swipeleft", function(event) {
+        if(direction !== RIGHT) {
+            direction = LEFT;
+        }
+    });
+    hammertime.on("swiperight", function(event) {
+        if(direction !== LEFT) {
+            direction = RIGHT;
+        }
+    });
+    hammertime.on("swipedown", function(event) {
+        if(direction !== UP) {
+            direction = DOWN;
+        }
+    });
+    hammertime.on("swipeup", function(event) {
+        if(direction !== DOWN) {
+            direction = UP;
+        }
+    });
+
 
     reset();
 }

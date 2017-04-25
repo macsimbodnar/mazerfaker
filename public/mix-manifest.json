@@ -2,6 +2,6 @@
   "/js/app.js": "/js/app.js",
   "/css/app.css": "/css/app.css",
   "/css/games/snake/snake.css": "/css/games/snake/snake.css",
-  "/js/util/nasty-button.js": "/js/util/nasty-button.js",
-  "/js/games/snake/snake.js": "/js/games/snake/snake.js"
+  "/js/games/snake/snake.js": "/js/games/snake/snake.js",
+  "/js/util/nasty-button.js": "/js/util/nasty-button.js"
 }

@@ -56,23 +56,27 @@
 @endsection
 
 @section('data-frame')
-    <div class="score-row">
-        <h6>{{ __('game.score') }}</h6>
-        <h6 id="score">0</h6>
+    <div class="game-info-row d-flex justify-content-between">
+        <h6 class="">{{ __('game.score') }}</h6>
+        <h6 class="" id="score">0</h6>
     </div>
-    <div class="speed-row">
+    <div class="game-info-row d-flex justify-content-between">
         <h6>{{ __('game.speed') }}</h6>
         <h6 id="speed">0</h6>
     </div>
 @endsection
 
 @section('info-frame')
-    <label for="wall-collision">
-        <h6>{{ __('game.wall-collision') }}</h6>
-    </label>
-    <input type="radio" id="wall-collision" />
+    <div class="d-flex justify-content-between">
+        <label for="wall-collision" class="">
+            <h6>{{ __('game.wall-collision') }}</h6>
+        </label>
+        <input type="checkbox" id="wall-collision" />
+    </div>
 
-    <h6>{{ __('game.help-pause') }} - ESC</h6>
-    <h6>{{ __('game.mute-sound') }} - S</h6>
-    <h6>{{ __('game.mute-music') }} - M</h6>
+    <div class="instructions-row game-info-row">
+        <h6>{{ __('game.help-pause') }} - ESC</h6>
+        <h6>{{ __('game.mute-sound') }} - S</h6>
+        <h6>{{ __('game.mute-music') }} - M</h6>
+    </div>
 @endsection

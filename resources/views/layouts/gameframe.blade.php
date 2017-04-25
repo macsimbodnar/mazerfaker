@@ -6,11 +6,13 @@
             <div class="game-frame col-8">
                 @yield('game-frame')
             </div>
-            <div class="data-frame col-4">
-                @yield('data-frame')
-            </div>
-            <div class="info-frame col-12">
-                @yield('info-frame')
+            <div class="game-info-col col-4">
+                <div class="data-frame">
+                    @yield('data-frame')
+                </div>
+                <div class="info-frame">
+                    @yield('info-frame')
+                </div>
             </div>
         </div>
     </div>

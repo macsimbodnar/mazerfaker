@@ -96,7 +96,6 @@
 .nasty-button-container {
   position: relative;
   height: 17rem;
-  //border: 1px solid;
   top: calc(50% - 40px);
   left:50%;
   transform: translate(-50%,-50%);
@@ -126,15 +125,17 @@
   height: 680px;
   padding-left: 0;
   padding-right: 0;
-  border: 1px solid black;
+  border: 1px solid $black;
+  border-right-color: $gold;
+  border-bottom-color: $gold;
 }
 .data-frame {
 
 }
-.info-frame {
-  height: 200px;
+.info-frame, .data-frame {
+  height: 50%;
 }
-.info-frame, .data-frame, .nasty-button-container
+.game-info-col, .nasty-button-container
 {
   border: 1px solid;
 }

@@ -31,7 +31,7 @@ class GameRoomController extends Controller
 //        $id = Auth::id();
 //        $role = $user->role;
 
-        d($request->header('User-Agent'));
+//        d($request->header('User-Agent'));
         return view('pages.gameroom.index', ['games' => Game::all()]);
     }
 

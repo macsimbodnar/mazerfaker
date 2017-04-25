@@ -10,8 +10,8 @@
         </div>
 
         @foreach($games as $game)
-            <div class="card game-card nasty-card">
-                <img class="card-img-top" src="{{ asset('images/games/' . $game->thumbnail) }}" alt="img">
+            <div class="card game-card mb-3 text-center">
+                <img class="card-img-top" height="257" src="{{ asset('images/games/' . $game->thumbnail) }}" alt="img">
                 <div class="card-block">
                     <h4 class="card-title">{{ $game->name }}</h4>
                     <p class="card-text">{{ $game->description }}</p>

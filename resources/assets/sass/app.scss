@@ -46,9 +46,6 @@
   height: 17rem;
   border: 1px solid;
 }
-.nasty-card {
-  text-align: center;
-}
 
 // Auth form
 .form-signin {
@@ -121,12 +118,11 @@
 
 // Games
 .game-card {
-  //width: 20rem;
-  //height: 100%;
+  width: 20rem;
   margin-top: 20px;
 }
 .game-frame {
-  width: 840px;//640px;
+  width: 840px;
   height: 680px;
   padding-left: 0;
   padding-right: 0;

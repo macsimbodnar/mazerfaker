@@ -768,10 +768,10 @@ $card-spacer-x:            1.25rem !default;
 $card-spacer-y:            .75rem !default;
 $card-border-width:        1px !default;
 $card-border-radius:       $border-radius !default;
-$card-border-color:        rgba($black,.125) !default;
+$card-border-color:        $gold !default;//rgba($black,.125) !default;
 $card-border-radius-inner: calc(#{$card-border-radius} - #{$card-border-width}) !default;
-$card-cap-bg:              $gray-lightest !default;
-$card-bg:                  $white !default;
+$card-cap-bg:              $black !default;//$gray-lightest !default;
+$card-bg:                  $black !default;//$white !default;
 
 $card-link-hover-color:    $white !default;
 

@@ -5,6 +5,7 @@
 
 /*
 #00A550 verde
+#39FF14 verde acido
 #EC048C rosa
 #F68C1E arancio
 #ED1C24 rosso
@@ -107,6 +108,7 @@ $red:    #ED1C24 !default;
 $orange: #F68C1E !default;
 $yellow: #FFF100 !default;
 $green:  #00A550 !default;
+$acid-green: #39FF14 !default;
 $blue:   #2E3092 !default;
 $teal:   #5bc0de !default;
 $pink:   #EC048C !default;
@@ -620,15 +622,15 @@ $form-icon-danger: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns
 $dropdown-min-width:             10rem !default;
 $dropdown-padding-y:             .5rem !default;
 $dropdown-margin-top:            .125rem !default;
-$dropdown-bg:                    $white !default;
-$dropdown-border-color:          rgba($black,.15) !default;
+$dropdown-bg:                    $black !default;//$white !default;
+$dropdown-border-color:          $gold !default;//rgba($black,.15) !default;
 $dropdown-border-width:          $border-width !default;
 $dropdown-divider-bg:            $gray-lighter !default;
 $dropdown-box-shadow:            0 .5rem 1rem rgba($black,.175) !default;
 
-$dropdown-link-color:            $gray-dark !default;
-$dropdown-link-hover-color:      darken($gray-dark, 5%) !default;
-$dropdown-link-hover-bg:         $gray-lightest !default;
+$dropdown-link-color:            $gold !default;//$gray-dark !default;
+$dropdown-link-hover-color:      $acid-green !default;//darken($gray-dark, 5%) !default;
+$dropdown-link-hover-bg:         $black !default;//$gray-lightest !default;
 
 $dropdown-link-active-color:     $component-active-color !default;
 $dropdown-link-active-bg:        $component-active-bg !default;
@@ -676,8 +678,8 @@ $navbar-inverse-disabled-color:        rgba($white,.25) !default;
 $navbar-inverse-toggler-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-inverse-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"), "#", "%23") !default;
 $navbar-inverse-toggler-border:        rgba($white,.1) !default;
 
-$navbar-light-color:                rgba($white,.5) !default;
-$navbar-light-hover-color:          rgba($white,.7) !default;
+$navbar-light-color:                $acid-green !default;//rgba($white,.5) !default;
+$navbar-light-hover-color:          $green !default;//rgba($white,.7) !default;
 $navbar-light-active-color:         $red;//rgba($white,.9) !default;
 $navbar-light-disabled-color:       rgba($white,.3) !default;
 $navbar-light-toggler-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"), "#", "%23") !default;

@@ -9,8 +9,10 @@ import NastyUtil from '../../export/NastyUtil'
  * CONSTANTS
  */
 const SNAKE_DIM = 10;
-const SIZE = 10;
-const MAX_SPEED = 50;
+const SIZE = 20;
+const MAX_SPEED = 60;
+const INIT_SPEED = 6;
+const SPEED_STAP = 4;
 const FOOD_VALUE = 10;
 
 const LEFT = 'L';
@@ -65,7 +67,8 @@ let h = 0;
  */
 let direction = '';
 let pause = false;
-let speed = 20;
+let speed = INIT_SPEED;
+let currentSpeedStep = 0;
 let snake = [];
 let food = null;
 let hitType = '';
@@ -167,39 +170,40 @@ function startGame() {
         let key = e.keyCode;
 
         if(key === KEY_LEFT && direction !== RIGHT)
-            setTimeout(function() {
+            //setTimeout(function() {
                 direction = LEFT;
                 //console.log('p - L' + key);
-            }, 30);
+            //}, 30);
         else if(key === KEY_UP && direction !== DOWN)
-            setTimeout(function() {
+            //setTimeout(function() {
                 direction = UP;
                 //console.log('p - U' + key);
-            }, 30);
+            //}, 30);
         else if(key === KEY_RIGHT && direction !== LEFT)
-            setTimeout(function() {
+            //setTimeout(function() {
                 direction = RIGHT;
                 //console.log('p - R' + key);
-            }, 30);
+            //}, 30);
         else if(key === KEY_DOWN && direction !== UP)
-            setTimeout(function() {
+            //setTimeout(function() {
                 direction = DOWN;
                 //console.log('p - D' + key);
-            }, 30);
-        else if(key === KEY_ESCAPE)
-            setTimeout(function() {
-                pause = !pause;
-                musicToggle();
-                pauseMessage.toggle();
-            }, 30);
+            //}, 30);
+        else if(key === KEY_ESCAPE) {
+            //setTimeout(function() {
+            pause = !pause;
+            musicToggle();
+            pauseMessage.toggle();
+        }
+            //}, 30);
         else if(key === KEY_M)
-            setTimeout(function() {
+            //setTimeout(function() {
                 musicStop();
-            }, 30);
+            //}, 30);
         else if(key === KEY_S)
-            setTimeout(function() {
+            //setTimeout(function() {
                 soundToggle();
-            }, 30);
+            //}, 30);
 
         if(key) e.preventDefault();
     };
@@ -299,9 +303,12 @@ function updateSnake() {
 
 
         // Increase snake speed
-        if(speed <= MAX_SPEED) {
+        currentSpeedStep++;
+
+        if(speed <= MAX_SPEED && currentSpeedStep === SPEED_STAP) {
             speed ++;
             speedField.innerHTML = speed;
+            currentSpeedStep = 0;
         }
 
         clearInterval(gameLoopInterval);
@@ -340,7 +347,7 @@ function mainLoop() {
 function reset() {
 
     direction = RIGHT;
-    speed = 20;
+    speed = INIT_SPEED;
     score = 0;
 
     speedField.innerHTML = speed;

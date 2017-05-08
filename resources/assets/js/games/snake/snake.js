@@ -66,6 +66,7 @@ let h = 0;
  * Game elements
  */
 let direction = '';
+let currentDirection = '';
 let pause = false;
 let speed = INIT_SPEED;
 let currentSpeedStep = 0;
@@ -169,22 +170,22 @@ function startGame() {
     document.onkeydown = function(e) {
         let key = e.keyCode;
 
-        if(key === KEY_LEFT && direction !== RIGHT)
+        if(key === KEY_LEFT && currentDirection !== RIGHT)
             //setTimeout(function() {
                 direction = LEFT;
                 //console.log('p - L' + key);
             //}, 30);
-        else if(key === KEY_UP && direction !== DOWN)
+        else if(key === KEY_UP && currentDirection !== DOWN)
             //setTimeout(function() {
                 direction = UP;
                 //console.log('p - U' + key);
             //}, 30);
-        else if(key === KEY_RIGHT && direction !== LEFT)
+        else if(key === KEY_RIGHT && currentDirection !== LEFT)
             //setTimeout(function() {
                 direction = RIGHT;
                 //console.log('p - R' + key);
             //}, 30);
-        else if(key === KEY_DOWN && direction !== UP)
+        else if(key === KEY_DOWN && currentDirection !== UP)
             //setTimeout(function() {
                 direction = DOWN;
                 //console.log('p - D' + key);
@@ -215,22 +216,22 @@ function startGame() {
     hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
     hammertime.on("swipeleft", function(event) {
-        if(direction !== RIGHT) {
+        if(currentDirection !== RIGHT) {
             direction = LEFT;
         }
     });
     hammertime.on("swiperight", function(event) {
-        if(direction !== LEFT) {
+        if(currentDirection !== LEFT) {
             direction = RIGHT;
         }
     });
     hammertime.on("swipedown", function(event) {
-        if(direction !== UP) {
+        if(currentDirection !== UP) {
             direction = DOWN;
         }
     });
     hammertime.on("swipeup", function(event) {
-        if(direction !== DOWN) {
+        if(currentDirection !== DOWN) {
             direction = UP;
         }
     });
@@ -257,6 +258,8 @@ function updateSnake() {
         head_y --;
     else if(direction === DOWN)
         head_y ++;
+    currentDirection = direction;
+
 
     // Move snake
     let tail = snake.pop();

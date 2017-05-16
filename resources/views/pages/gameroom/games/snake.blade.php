@@ -13,6 +13,10 @@
 
         <canvas id="canvas" class="canvas"></canvas>
 
+        <div class="score-in-canvas">
+            <h6 class="" id="score-in-canvas">0</h6>
+        </div>
+
         <div class="menu-container">
             <div class="pausa" id="pause" >
                 <h4>{{ __('game.pause') }}</h4>
@@ -79,4 +83,20 @@
         <h6>{{ __('game.mute-sound') }} - S</h6>
         <h6>{{ __('game.mute-music') }} - M</h6>
     </div>
+@endsection
+
+@section('game-command-bar')
+    <div class="game-command-bar-inner">
+        <button id="pause-button" class="btn btn-primary">
+            {{ __('game.pause') }}
+        </button>
+        <button id="mute-button" class="btn btn-primary">
+            {{ __('game.mute') }}
+        </button>
+        <label for="wall-collision" class="">
+            <h6>{{ __('game.wall') }}</h6>
+        </label>
+        <input type="checkbox" id="wall-collision-command-bar" />
+    </div>
+
 @endsection

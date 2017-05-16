@@ -10,6 +10,7 @@ return [
     'game-over' => 'HAHAHA... Game Over! (o)(o)',
     'help-pause' => 'Pause',
     'loading' => 'Loading',
+    'mute' => 'Mute',
     'mute-sound' => 'Mute sound',
     'mute-music' => 'Mute music',
     'pause' => 'Pause',
@@ -18,5 +19,6 @@ return [
     'score' => 'Score',
     'speed' => 'Speed',
     'start' => 'Start',
-    'wall-collision' => 'Enable wall collision',
+    'wall' => 'Wall',
+    'wall-collision' => 'Wall collision',
 ];

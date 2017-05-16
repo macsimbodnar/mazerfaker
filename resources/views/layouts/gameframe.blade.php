@@ -2,17 +2,18 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="game-frame col-8">
-                @yield('game-frame')
+        <div class="game-frame">
+            @yield('game-frame')
+            <div class="game-command-bar">
+                @yield('game-command-bar')
             </div>
-            <div class="game-info-col col-4">
-                <div class="data-frame">
-                    @yield('data-frame')
-                </div>
-                <div class="info-frame">
-                    @yield('info-frame')
-                </div>
+        </div>
+        <div class="game-info-col">
+            <div class="data-frame">
+                @yield('data-frame')
+            </div>
+            <div class="info-frame">
+                @yield('info-frame')
             </div>
         </div>
     </div>

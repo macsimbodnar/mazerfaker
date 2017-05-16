@@ -9,19 +9,25 @@
             </div>
         </div>
 
-        @foreach($games as $game)
-            <div class="card game-card mb-3 text-center">
-                <img class="card-img-top" height="257" src="{{ asset('images/games/' . $game->thumbnail) }}" alt="img">
-                <div class="card-block">
-                    <h4 class="card-title">{{ $game->name }}</h4>
-                    <p class="card-text">{{ $game->description }}</p>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ route('games' , ['name' => strtolower($game->unic_name)]) }}" class="btn btn-primary">
-                        {{ __('game.play') }}
-                    </a>
-                </div>
+        <div class="container">
+            <div class="row">
+                @foreach($games as $game)
+                    <div class="col">
+                        <div class="card game-card mb-3 text-center">
+                            <img class="card-img-top" height="257" src="{{ asset('images/games/' . $game->thumbnail) }}" alt="img">
+                            <div class="card-block">
+                                <h4 class="card-title">{{ $game->name }}</h4>
+                                <p class="card-text">{{ $game->description }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{{ route('games' , ['name' => strtolower($game->unic_name)]) }}" class="btn btn-primary">
+                                    {{ __('game.play') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        @endforeach
+        </div>
     </div>
 @endsection

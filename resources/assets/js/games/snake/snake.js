@@ -47,10 +47,15 @@ let soundOn = true;
 let gameMenu = null;
 let startButton = null;
 let pauseMessage = null;
+let pauseButton = null;
+let muteButton = null;
 let restartMenu = null;
 let restartButton = null;
 let scoreField = null;
+let scoreInCanvasField = null;
 let speedField = null;
+let wallCollisionInfo = null;
+let wallCollisionBar = null;
 
 
 /*
@@ -94,7 +99,13 @@ function init() {
     restartMenu = $('#restart-menu');
     restartButton = $('#restart');
     scoreField = document.getElementById('score');
+    scoreInCanvasField = document.getElementById('score-in-canvas');
     speedField = document.getElementById('speed');
+    wallCollisionInfo = $('#wall-collision');
+    wallCollisionBar = $('#wall-collision-command-bar');
+    pauseButton = $('#pause-button');
+    muteButton = $('#mute-button');
+
 
     // Preloading data
     // let files = [mainMusic, foodMusic, gameOverMusic];
@@ -141,11 +152,26 @@ function setListeners() {
     restartButton.click(function () {
         restartMenu.toggle();
         scoreField.innerHTML = '0';
+        scoreInCanvasField.innerHTML = '0';
         reset();
     });
+    
+    pauseButton.click(function () {
+        pauseGame();
+    });
+    
+    muteButton.click(function () {
+        soundToggle();
+    });
 
-    $('#wall-collision').change(function () {
+    wallCollisionInfo.change(function () {
         wallCollision = $(this).is(':checked');
+        wallCollisionBar.prop("checked", wallCollision);
+    });
+
+    wallCollisionBar.change(function() {
+        wallCollision = $(this).is(':checked');
+        wallCollisionInfo.prop("checked", wallCollision);
     });
 }
 
@@ -192,9 +218,7 @@ function startGame() {
             //}, 30);
         else if(key === KEY_ESCAPE) {
             //setTimeout(function() {
-            pause = !pause;
-            musicToggle();
-            pauseMessage.toggle();
+            pauseGame();
         }
             //}, 30);
         else if(key === KEY_M)
@@ -421,6 +445,17 @@ function gameover() {
 function updateScore() {
     score += FOOD_VALUE;
     scoreField.innerHTML = score;
+    scoreInCanvasField.innerHTML = score;
+}
+
+
+/**
+ * Pause game routine
+ */
+function pauseGame() {
+    pause = !pause;
+    musicToggle();
+    pauseMessage.toggle();
 }
 
 

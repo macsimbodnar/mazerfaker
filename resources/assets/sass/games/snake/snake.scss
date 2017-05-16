@@ -1,6 +1,5 @@
 .snake-game {
   height: 100%;
-  width: 100%;
 }
 .canvas {
   background: black;
@@ -25,4 +24,19 @@
 .instructions-row {
   position: absolute;
   bottom: 0;
+}
+.game-command-bar-inner {
+  margin: 2px;
+}
+.score-in-canvas {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .score-in-canvas {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
 }

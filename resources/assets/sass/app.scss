@@ -45,6 +45,7 @@
   position: relative;
   height: 17rem;
   border: 1px solid;
+  margin-bottom: 15px;
 }
 
 // Auth form
@@ -115,27 +116,72 @@
   cursor: pointer;
 }
 
-// Games
+// Games room
 .game-card {
-  width: 20rem;
-  margin-top: 20px;
+  max-width: 22rem;
+  //margin-top: 20px;
 }
+
+// Game
+
+$game-frame-height: 680px;
+
 .game-frame {
-  width: 840px;
-  height: 680px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  max-width: 840px;
+  width: 100%;
+  height: $game-frame-height;
   padding-left: 0;
   padding-right: 0;
   border: 1px solid $black;
   border-right-color: $gold;
   border-bottom-color: $gold;
 }
-.data-frame {
+.game-info-col {
+  position: absolute;
+  top: 0;
+  right: 0;
 
+  width: 301px;
+  height: $game-frame-height;
+}
+.info-frame {
 }
 .info-frame, .data-frame {
+  margin: 10px;
   height: 50%;
 }
 .game-info-col, .nasty-button-container
 {
   border: 1px solid;
+}
+.game-command-bar {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+
+  .game-frame {
+    position: static;
+    margin: auto;
+    border: none;
+    height: calc(100vh - 50px - 45px);
+  }
+  .canvas {
+    margin: auto;
+    display: flex;
+  }
+  .game-info-col {
+    display: none;
+  }
+  .game-command-bar {
+    display: flex;
+    position: static;
+    width: 100%;
+  }
+
+
 }

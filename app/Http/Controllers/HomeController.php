@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\LeslieChowTip;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,7 +33,22 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function leslieChowTips() {
+
         return view('pages.lesliechow');
     }
+
+
+//    private function readFile() {
+//        $file = fopen("/home/max/ws/mazerfaker/public/f.txt","r");
+//
+//        while(! feof($file))
+//        {
+//            $leslieChowTip = new LeslieChowTip();
+//            $leslieChowTip->tip = fgets($file);
+//            $leslieChowTip->save();
+//        }
+//
+//        fclose($file);
+//    }
 
 }

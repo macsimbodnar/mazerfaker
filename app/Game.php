@@ -37,4 +37,14 @@ class Game extends Model
      * @var string
      */
     protected $thumbnail;
+
+
+    /**
+     * Get scores
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function scores() {
+        return $this->hasMany('App\Score');
+    }
 }

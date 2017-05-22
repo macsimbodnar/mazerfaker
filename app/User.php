@@ -9,6 +9,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,6 +18,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password', 'role_id'
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -27,6 +29,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
     /**
      * User role id
      *
@@ -34,11 +37,21 @@ class User extends Authenticatable
      */
     protected $role_id;
 
+
     /**
      * Get user role
      */
-    public function role()
-    {
+    public function role() {
         return $this->belongsTo('App\Role');
+    }
+
+
+    /**
+     * Get scores
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function scores() {
+        return $this->hasMany('App\Score');
     }
 }

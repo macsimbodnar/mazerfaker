@@ -21,6 +21,7 @@ class Role extends Model
      */
     protected $description;
 
+
     /**
      * Get users with this role
      */

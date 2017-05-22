@@ -23,6 +23,20 @@ Route::get('home', function () {
     return redirect()->route('index');
 });
 
+Route::get('leslie.chow.tips', 'HomeController@leslieChowTips')->name('leslie.chow.tips');
+
+Route::get('leslie', function () {
+    return redirect()->route('leslie.chow.tips');
+});
+
+Route::get('chow', function () {
+    return redirect()->route('leslie.chow.tips');
+});
+
+Route::get('tips', function () {
+    return redirect()->route('leslie.chow.tips');
+});
+
 
 /*
  * Game Room Routes

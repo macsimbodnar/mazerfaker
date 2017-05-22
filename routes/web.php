@@ -54,3 +54,10 @@ Route::get('games', function () {
 });
 
 Route::get('games/{name}', 'GameRoomController@games')->name('games');
+
+
+/**
+ * Test routes
+ */
+//Route::get('test', 'GameRoomController@test');
+//Route::get('gettest', 'GameRoomController@getTest');

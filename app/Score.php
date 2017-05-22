@@ -45,7 +45,7 @@ class Score extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function palyer() {
+    public function user() {
         return $this->belongsTo('App\User');
     }
 }

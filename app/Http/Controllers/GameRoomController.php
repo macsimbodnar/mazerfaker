@@ -39,7 +39,7 @@ class GameRoomController extends Controller
 
     public function games(Request $request, $name) {
 
-        return view('pages.gameroom.games.' . $name, ['game' => Game::where('unic_name', $name)->first()]);
+        return view('pages.gameroom.games.' . $name, ['user' => Auth::user(), 'game' => Game::where('unic_name', $name)->first()]);
     }
 
 
@@ -47,6 +47,10 @@ class GameRoomController extends Controller
     //
     // TEST METHODS TODO da togliere
     //
+
+//    public function testview(Request $request) {
+//        return view('pages.test.button');
+//    }
 
 //    public function test(Request $request) {
 //        $games = Game::all();

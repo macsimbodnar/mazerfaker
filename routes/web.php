@@ -56,8 +56,15 @@ Route::get('games', function () {
 Route::get('games/{name}', 'GameRoomController@games')->name('games');
 
 
+/*
+ * Score Routes
+ */
+Route::resource('scores', 'ScoreController');
+
+
 /**
  * Test routes
  */
 //Route::get('test', 'GameRoomController@test');
+//Route::get('testview', 'GameRoomController@testview');
 //Route::get('gettest', 'GameRoomController@getTest');

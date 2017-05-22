@@ -44,6 +44,9 @@ let soundOn = true;
 /*
  * HTML elements
  */
+let user = null;
+let userId = null;
+let gameId = null;
 let gameMenu = null;
 let startButton = null;
 let pauseMessage = null;
@@ -88,6 +91,9 @@ let wallCollision = false;
  */
 function init() {
 
+    // Get game id
+    gameId = $('#game-id').data('gameid');
+
     // Get elements
     mainMusic = document.getElementById('main-music');
     foodMusic = document.getElementById('food-music');
@@ -106,6 +112,13 @@ function init() {
     pauseButton = $('#pause-button');
     muteButton = $('#mute-button');
 
+    // Get user information
+    user = $('#user');
+    if(user.length > 0) {
+        userId = user.data('userid');
+    } else {
+        user = null;
+    }
 
     // Preloading data
     // let files = [mainMusic, foodMusic, gameOverMusic];
@@ -434,6 +447,7 @@ function cleanCanvas() {
 function gameover() {
     musicStop();
     musicEffectPlay('game-over');
+    saveScore();
     clearInterval(gameLoopInterval);
     restartMenu.toggle();
 }
@@ -517,6 +531,40 @@ function soundToggle() {
         mainMusic.muted = false;
         gameOverMusic.muted = false;
         soundOn = true;
+    }
+}
+
+
+/**
+ * Save actual score on db
+ */
+function saveScore() {
+    if(user) {
+
+        let data = {};
+        data.gameid = gameId;
+        data.score = score;
+
+        let request = $.ajax({
+            url: '/scores',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            method: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "json",
+        });
+
+        request.done(function(data) {
+            // TODO
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            // TODO
+        });
+
+        request.always(function() {
+            // TODO
+        });
     }
 }
 

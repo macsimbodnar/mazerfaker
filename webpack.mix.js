@@ -31,3 +31,8 @@ mix.js('resources/assets/js/util/nasty-button.js', 'public/js/util/nasty-button.
 // Snake
 mix.js('resources/assets/js/games/snake/snake.js', 'public/js/games/snake/snake.js')
    .sass('resources/assets/sass/games/snake/snake.scss', 'public/css/games/snake/snake.css');
+
+/**
+ * TEST
+ */
+mix.js('resources/assets/js/test/test.js', 'public/js/test/test.js');

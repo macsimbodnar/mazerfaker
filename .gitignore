@@ -17,3 +17,6 @@ Homestead.yaml
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
+/public/js/test/
+/resources/assets/js/test/
+/resources/views/pages/test/

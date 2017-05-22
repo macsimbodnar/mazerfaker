@@ -16,6 +16,12 @@
             </li>
         </ul>
 
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('leslie.chow.tips') }}">{{ __('navigation.leslie_chow_tips') }}</a>
+            </li>
+        </ul>
+
         <!-- Authentication Links -->
         <ul class="navbar-nav ml-auto">
 

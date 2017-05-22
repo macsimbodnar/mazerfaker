@@ -7,4 +7,5 @@
 
 return [
     'games' => 'Games',
+    'leslie_chow_tips' => 'Leslie Chow Tips'
 ];

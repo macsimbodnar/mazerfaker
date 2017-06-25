@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'tip' => 'Tip'
+    'tip' => 'Tip',
+    'leslie_chow_tips' => 'Leslie Chow Tips'
 ];

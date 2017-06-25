@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\LeslieChowTip;
 use Illuminate\Http\Request;
 
 class LeslieChowTipsController extends Controller
@@ -11,9 +12,11 @@ class LeslieChowTipsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function leslieChowTips() {
+    public function leslieChowTips()
+    {
+        $leslieChowTip = LeslieChowTip::all()->random();
 
-        return view('pages.lesliechow.lesliechow');
+        return view('pages.lesliechow.lesliechow', ['tip' => $leslieChowTip->tip]);
     }
 
 

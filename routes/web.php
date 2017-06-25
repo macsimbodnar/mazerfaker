@@ -14,16 +14,40 @@
 Auth::routes();
 
 
-/*
- * Site Home Route
- */
+
+/*****************************
+ * Site Home Route           *
+ *****************************/
+
 Route::get('/', 'HomeController@index')->name('index');
 
 Route::get('home', function () {
     return redirect()->route('index');
 });
 
-Route::get('leslie.chow.tips', 'HomeController@leslieChowTips')->name('leslie.chow.tips');
+
+
+/*****************************
+ * Leslie Chow Routes        *
+ *****************************/
+
+// Tips
+Route::get('leslie.chow.tips', 'LeslieChowTipsController@leslieChowTips')->name('leslie.chow.tips');
+
+Route::get('leslie', function () {
+    return redirect()->route('leslie.chow.tips');
+});
+
+Route::get('chow', function () {
+    return redirect()->route('leslie.chow.tips');
+});
+
+Route::get('tips', function () {
+    return redirect()->route('leslie.chow.tips');
+});
+
+// Edit
+Route::get('leslie.chow.tips.edit', 'LeslieChowTipsAuthController@leslieChowTipsEdit')->name('leslie.chow.tips.edit');
 
 Route::get('leslie', function () {
     return redirect()->route('leslie.chow.tips');
@@ -38,9 +62,11 @@ Route::get('tips', function () {
 });
 
 
-/*
- * Game Room Routes
- */
+
+/*****************************
+ * Game Room Routes          *
+ *****************************/
+
 Route::get('gameroom', 'GameRoomController@index')->name('gameroom');
 
 Route::get('salagiochi', function() {
@@ -70,15 +96,19 @@ Route::get('games', function () {
 Route::get('games/{name}', 'GameRoomController@games')->name('games');
 
 
-/*
- * Score Routes
- */
+
+/*****************************
+ * Score Routes              *
+ *****************************/
+
 Route::resource('scores', 'ScoreController');
 
 
-/**
- * Test routes
- */
+
+/*****************************
+ * Test routes               *
+ *****************************/
+
 //Route::get('test', 'GameRoomController@test');
 //Route::get('testview', 'GameRoomController@testview');
 //Route::get('gettest', 'GameRoomController@getTest');

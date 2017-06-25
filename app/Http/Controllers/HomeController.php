@@ -12,7 +12,8 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         //$this->middleware('auth');
     }
 
@@ -22,33 +23,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         return view('pages.index');
     }
-
-
-    /**
-     * Show the Leshlie Chow aka [Matteo] tips to eat in the Lambrazzers area
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function leslieChowTips() {
-
-        return view('pages.lesliechow');
-    }
-
-
-//    private function readFile() {
-//        $file = fopen("/home/max/ws/mazerfaker/public/f.txt","r");
-//
-//        while(! feof($file))
-//        {
-//            $leslieChowTip = new LeslieChowTip();
-//            $leslieChowTip->tip = fgets($file);
-//            $leslieChowTip->save();
-//        }
-//
-//        fclose($file);
-//    }
-
 }

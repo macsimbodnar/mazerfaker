@@ -47,19 +47,23 @@ Route::get('tips', function () {
 });
 
 // Edit
-Route::get('leslie.chow.tips.edit', 'LeslieChowTipsAuthController@leslieChowTipsEdit')->name('leslie.chow.tips.edit');
+Route::get('leslie.chow.tips/edit', 'LeslieChowTipsAuthController@leslieChowTipsEdit')->name('leslie.chow.tips.edit');
 
-Route::get('leslie', function () {
+Route::get('leslie/edit', function () {
     return redirect()->route('leslie.chow.tips');
 });
 
-Route::get('chow', function () {
+Route::get('chow/edit', function () {
     return redirect()->route('leslie.chow.tips');
 });
 
-Route::get('tips', function () {
+Route::get('tips/edit', function () {
     return redirect()->route('leslie.chow.tips');
 });
+
+// Add
+Route::post('leslie.chow.tips/edit/add', 'LeslieChowTipsAuthController@leslieChowTipsAdd')->name('leslie.chow.tips.add');
+
 
 
 

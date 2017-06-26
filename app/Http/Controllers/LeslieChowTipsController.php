@@ -20,6 +20,18 @@ class LeslieChowTipsController extends Controller
     }
 
 
+    /**
+     * get leslie chow tip
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function get()
+    {
+        $leslieChowTip = LeslieChowTip::all()->random();
+
+        return response()->json(['tip' => $leslieChowTip->tip]);
+    }
+
+
 //        private function readFile() {
 //        $file = fopen("/home/max/ws/mazerfaker/public/f.txt","r");
 //

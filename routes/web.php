@@ -64,6 +64,9 @@ Route::get('tips/edit', function () {
 // Add
 Route::post('leslie.chow.tips/edit/add', 'LeslieChowTipsAuthController@leslieChowTipsAdd')->name('leslie.chow.tips.add');
 
+// Get tips
+Route::get('leslie.chow.tips/get', 'LeslieChowTipsController@get');
+
 
 
 

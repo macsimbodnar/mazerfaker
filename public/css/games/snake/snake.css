@@ -1,1 +1,53 @@
-.pausa,.restart-menu,.score-in-canvas,.start{display:none}.snake-game{margin:auto;height:100%;max-width:450px;max-height:400px}.canvas{background:#000;border-style:solid;border-width:2px;border-color:gold}.menu-container{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);text-align:center}.game-info-row{padding-top:10px}.instructions-row{position:absolute;bottom:0}.game-command-bar-inner{position:fixed;bottom:0;margin:auto}@media screen and (max-width:1200px){.score-in-canvas{display:-webkit-box;display:-ms-flexbox;display:flex;position:absolute;top:10px;right:20px}}
+.snake-game {
+  height: 100%;
+}
+
+.canvas {
+  background: black;
+  border-style: solid;
+  border-width: 2px;
+  border-color: gold;
+}
+
+.menu-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.start,
+.pausa,
+.restart-menu {
+  display: none;
+}
+
+.game-info-row {
+  padding-top: 10px;
+}
+
+.instructions-row {
+  position: absolute;
+  bottom: 0;
+}
+
+.game-command-bar-inner {
+  margin: 2px;
+}
+
+.score-in-canvas {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .score-in-canvas {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
+}

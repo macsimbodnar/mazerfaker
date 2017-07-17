@@ -10,10 +10,15 @@ import NastyUtil from '../../export/NastyUtil'
  */
 const SNAKE_DIM = 10;
 const SIZE = 20;
+const SIZE_MULTIPLIER = 2;
+const BIG_SIZE = SIZE * SIZE_MULTIPLIER;
 const MAX_SPEED = 60;
 const INIT_SPEED = 6;
 const SPEED_STAP = 4;
 const FOOD_VALUE = 10;
+const BIG_FOOD_VALUE = FOOD_VALUE * SIZE_MULTIPLIER;
+const BIG_FOOD_RATIO = 5;
+const BIG_FOOD_TIME = 5 * 1000;
 
 const LEFT = 'L';
 const RIGHT = 'R';
@@ -80,8 +85,11 @@ let speed = INIT_SPEED;
 let currentSpeedStep = 0;
 let snake = [];
 let food = null;
+let bigFood = null;
 let hitType = '';
 let score = 0;
+let smallEaten = 0;
+let bigEaten = 0;
 let gameLoopInterval = null;
 let wallCollision = false;
 
@@ -329,13 +337,15 @@ function updateSnake() {
         }
     }
 
-
+    if(smallEaten % BIG_FOOD_RATIO === 0 && bigFood === null) {
+        bigFood = new BigFood();
+    }
 
     // Check food collision
-    if(head_x === food.x && head_y === food.y) {
+    if(food.contain(head_x, head_y)) {
         snake.unshift(food);
-        score += FOOD_VALUE;
-        updateScore();
+        smallEaten++;
+        updateScore(false);
         food = new Food();
         foodMusic.pause();
         foodMusic.currentTime = 0;
@@ -353,6 +363,12 @@ function updateSnake() {
 
         clearInterval(gameLoopInterval);
         gameLoopInterval = setInterval(mainLoop, 1000/speed);
+
+    } else if((bigFood !== null) && (bigFood.contain(head_x, head_y) === true)) {
+
+        bigEaten ++;
+        bigFood = null;
+        updateScore(true);
 
     } else {
         // Check collision between snake parts
@@ -377,6 +393,9 @@ function mainLoop() {
         drawSnake();
         updateSnake();
         food.draw();
+        if(bigFood) {
+            bigFood.draw();
+        }
     }
 }
 
@@ -388,6 +407,8 @@ function reset() {
 
     direction = RIGHT;
     speed = INIT_SPEED;
+    smallEaten = 0;
+    bigEaten = 0;
     score = 0;
 
     speedField.innerHTML = speed;
@@ -456,8 +477,8 @@ function gameover() {
 /**
  * Update score on screen
  */
-function updateScore() {
-    score += FOOD_VALUE;
+function updateScore(big = false) {
+    score += big === true ? BIG_FOOD_VALUE : FOOD_VALUE;
     scoreField.innerHTML = score;
     scoreInCanvasField.innerHTML = score;
 }
@@ -590,6 +611,15 @@ class Food {
     }
 
 
+    contain(x, y) {
+       return (x === this._x && y === this._y);
+    }
+
+
+    get big() {
+        return this._big;
+    }
+
     get x() {
         return this._x;
     }
@@ -600,6 +630,10 @@ class Food {
 
     get color() {
         return this._color;
+    }
+
+    set big(value) {
+        this._big = value;
     }
 
     set x(value) {
@@ -615,6 +649,66 @@ class Food {
     }
 }
 
+
+class BigFood {
+
+    constructor() {
+        this._color = NastyUtil.nastyColor;
+        this._x = Math.round(Math.random() * (w - BIG_SIZE) / BIG_SIZE);
+        this._y = Math.round(Math.random() * (h - BIG_SIZE) / BIG_SIZE);
+        window.setTimeout(function() {
+            bigFood = null;
+        },
+        BIG_FOOD_TIME);
+    }
+
+
+    /**
+     * Draw food on canvas
+     */
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this._x * BIG_SIZE, this._y * BIG_SIZE, BIG_SIZE, BIG_SIZE);
+    }
+
+
+    contain(x, y) {
+        return ((x === (this._x * SIZE_MULTIPLIER) && y === (this._y * SIZE_MULTIPLIER)) ||
+        (x === ((this._x * SIZE_MULTIPLIER) + 1) && y === ((this._y * SIZE_MULTIPLIER) + 1)) ||
+        (x === (this._x * SIZE_MULTIPLIER) && y === ((this._y * SIZE_MULTIPLIER) + 1)) ||
+        (x === ((this._x * SIZE_MULTIPLIER) + 1) && y === (this._y * SIZE_MULTIPLIER)));
+
+    }
+
+
+    get x() {
+        return this._x;
+    }
+
+    get y() {
+        return this._y;
+    }
+
+    get color() {
+        return this._color;
+    }
+
+    set big(value) {
+        this._big = value;
+    }
+
+    set x(value) {
+        this._x = value;
+    }
+
+    set y(value) {
+        this._y = value;
+    }
+
+    set color(value) {
+        this._color = value;
+    }
+}
 
 /******************************
  *       START SCRIPT         *

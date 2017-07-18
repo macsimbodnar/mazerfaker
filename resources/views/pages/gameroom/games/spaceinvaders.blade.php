@@ -11,7 +11,7 @@
 
     <div id="spaceinvaders-game" class="spaceinvaders-game">
 
-        <canvas id="canvas" class="canvas"></canvas>
+        <canvas id="canvas" class="canvas" width="640" height="640"></canvas>
 
     </div>
 

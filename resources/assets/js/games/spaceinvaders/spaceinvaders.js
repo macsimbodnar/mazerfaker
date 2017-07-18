@@ -689,8 +689,7 @@ function drawBottomHud() {
         player.clipRect.h, 45, CANVAS_HEIGHT - 23, player.clipRect.w * 0.5,
         player.clipRect.h * 0.5);
     fillText('CREDIT: ', CANVAS_WIDTH - 115, CANVAS_HEIGHT - 7.5);
-    fillCenteredText('SHOOT: X   MOVE: <- ->', CANVAS_WIDTH/2, CANVAS_HEIGHT - 7.5);
-
+    fillCenteredText('SHOOT: X  |  MOVE: <- ->  |  PAUSE: ESC', CANVAS_WIDTH/2, CANVAS_HEIGHT - 7.5);
     fillCenteredText('SCORE: ' + player.score, CANVAS_WIDTH/2, 20);
     fillBlinkingText('00', CANVAS_WIDTH - 25, CANVAS_HEIGHT - 7.5, TEXT_BLINK_FREQ);
 }

@@ -567,30 +567,19 @@ function soundToggle() {
 function saveScore() {
     if(user) {
 
-        let data = {};
-        data.gameid = gameId;
-        data.score = score;
+        function onSucces(data) {
+            // TODO da fare;
+        }
 
-        let request = $.ajax({
-            url: '/scores',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            method: "POST",
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            dataType: "json",
-        });
+        function onFail(jqXHR, textStatus) {
+            // TODO da fare
+        }
 
-        request.done(function(data) {
-            // TODO
-        });
+        function always() {
+            // TODO da fare
+        }
 
-        request.fail(function( jqXHR, textStatus ) {
-            // TODO
-        });
-
-        request.always(function() {
-            // TODO
-        });
+        NastyUtil.saveScore(user, gameId, score, onSucces, onFail, always);
     }
 }
 

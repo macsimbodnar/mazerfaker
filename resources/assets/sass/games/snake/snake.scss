@@ -29,7 +29,9 @@
   bottom: 0;
 }
 .game-command-bar-inner {
-  margin: 2px;
+  position: fixed;
+  bottom: 0;
+  margin: auto;
 }
 .score-in-canvas {
   display: none;

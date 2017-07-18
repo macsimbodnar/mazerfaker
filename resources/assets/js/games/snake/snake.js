@@ -18,7 +18,7 @@ const SPEED_STAP = 4;
 const FOOD_VALUE = 10;
 const BIG_FOOD_VALUE = FOOD_VALUE * SIZE_MULTIPLIER;
 const BIG_FOOD_RATIO = 5;
-const BIG_FOOD_TIME = 5 * 1000;
+const BIG_FOOD_TIME = 3500;
 
 const LEFT = 'L';
 const RIGHT = 'R';
@@ -90,6 +90,7 @@ let hitType = '';
 let score = 0;
 let smallEaten = 0;
 let bigEaten = 0;
+let bigDrawCounter = 1;
 let gameLoopInterval = null;
 let wallCollision = false;
 
@@ -337,7 +338,8 @@ function updateSnake() {
         }
     }
 
-    if(smallEaten % BIG_FOOD_RATIO === 0 && bigFood === null) {
+
+    if((bigDrawCounter % BIG_FOOD_RATIO === 0) && bigFood === null) {
         bigFood = new BigFood();
     }
 
@@ -345,6 +347,7 @@ function updateSnake() {
     if(food.contain(head_x, head_y)) {
         snake.unshift(food);
         smallEaten++;
+        bigDrawCounter++;
         updateScore(false);
         food = new Food();
         foodMusic.pause();
@@ -367,6 +370,7 @@ function updateSnake() {
     } else if((bigFood !== null) && (bigFood.contain(head_x, head_y) === true)) {
 
         bigEaten ++;
+        bigDrawCounter++;
         bigFood = null;
         updateScore(true);
 
@@ -393,7 +397,7 @@ function mainLoop() {
         drawSnake();
         updateSnake();
         food.draw();
-        if(bigFood) {
+        if(bigFood !== null) {
             bigFood.draw();
         }
     }
@@ -410,6 +414,7 @@ function reset() {
     smallEaten = 0;
     bigEaten = 0;
     score = 0;
+    bigDrawCounter = 1;
 
     speedField.innerHTML = speed;
 

@@ -164,6 +164,7 @@ var SPRITE_SHEET_SRC = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAEACA
 var LEFT_KEY = 37; // <-
 var RIGHT_KEY = 39; // ->
 var SHOOT_KEY = 88; // x
+var PAUSE_KEY = 27; // esc
 var TEXT_BLINK_FREQ = 500;
 var PLAYER_CLIP_RECT = { x: 0, y: 204, w: 62, h: 32 };
 var ALIEN_BOTTOM_ROW = [{ x: 0, y: 0, w: 51, h: 34 }, { x: 0, y: 102, w: 51, h: 34 }];
@@ -173,6 +174,8 @@ var ALIEN_X_MARGIN = 40;
 var ALIEN_SQUAD_WIDTH = 11 * ALIEN_X_MARGIN;
 var SHOOT_COLOR = 'gold';
 var TEXT_COLOR = 'gold';
+var BOTTOM_HUB_COLOR = '#02ff12';
+var CANVAS_COLOR = 'black';
 
 //###################################################################
 //
@@ -251,6 +254,7 @@ var alienYDown = 0;
 var alienCount = 0;
 var wave = 1;
 var hasGameStarted = false;
+var pause = false;
 
 //###################################################################
 //
@@ -333,6 +337,10 @@ var Player = SheetSprite.extend({
     },
 
     handleInput: function handleInput() {
+        if (wasKeyPressed(PAUSE_KEY)) {
+            pause = !pause;
+        }
+
         if (isKeyDown(LEFT_KEY)) {
             this.xVel = -175;
         } else if (isKeyDown(RIGHT_KEY)) {
@@ -701,9 +709,12 @@ function resolveCollisions() {
 function updateGame(dt) {
     player.handleInput();
     prevKeyStates = keyStates.slice();
-    player.update(dt);
-    updateAliens(dt);
-    resolveCollisions();
+
+    if (!pause) {
+        player.update(dt);
+        updateAliens(dt);
+        resolveCollisions();
+    }
 }
 
 function drawIntoCanvas(width, height, drawFunc) {
@@ -733,7 +744,7 @@ function fillBlinkingText(text, x, y, blinkFreq, color, fontSize) {
 }
 
 function drawBottomHud() {
-    ctx.fillStyle = '#02ff12';
+    ctx.fillStyle = BOTTOM_HUB_COLOR;
     ctx.fillRect(0, CANVAS_HEIGHT - 30, CANVAS_WIDTH, 2);
     fillText(player.lives + ' x ', 10, CANVAS_HEIGHT - 7.5, TEXT_COLOR, 20);
     ctx.drawImage(spriteSheetImg, player.clipRect.x, player.clipRect.y, player.clipRect.w, player.clipRect.h, 45, CANVAS_HEIGHT - 23, player.clipRect.w * 0.5, player.clipRect.h * 0.5);
@@ -757,8 +768,8 @@ function drawGame(resized) {
 }
 
 function drawStartScreen() {
-    fillCenteredText("Space Invaders", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.75, '#FFFFFF', 36);
-    fillBlinkingText("Press enter to play!", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 500, '#FFFFFF', 36);
+    fillCenteredText("Space Invaders", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.75, TEXT_COLOR, 36);
+    fillBlinkingText("Press enter to play!", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 500, TEXT_COLOR, 36);
 }
 
 function animate() {
@@ -774,7 +785,7 @@ function animate() {
         updateGame(dt / 1000);
     }
 
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = CANVAS_COLOR;
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     if (hasGameStarted) {
         drawGame(false);

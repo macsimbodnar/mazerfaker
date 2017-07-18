@@ -90,6 +90,7 @@ const SPRITE_SHEET_SRC = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAEA
 const LEFT_KEY = 37;  // <-
 const RIGHT_KEY = 39; // ->
 const SHOOT_KEY = 88; // x
+const PAUSE_KEY = 27; // esc
 const TEXT_BLINK_FREQ = 500;
 const PLAYER_CLIP_RECT = { x: 0, y: 204, w: 62, h: 32 };
 const ALIEN_BOTTOM_ROW = [ { x: 0, y: 0, w: 51, h: 34 }, { x: 0, y: 102, w: 51, h: 34 }];
@@ -99,6 +100,8 @@ const ALIEN_X_MARGIN = 40;
 const ALIEN_SQUAD_WIDTH = 11 * ALIEN_X_MARGIN;
 const SHOOT_COLOR = 'gold';
 const TEXT_COLOR = 'gold';
+const BOTTOM_HUB_COLOR = '#02ff12';
+const CANVAS_COLOR = 'black';
 
 
 //###################################################################
@@ -182,6 +185,7 @@ let alienYDown = 0;
 let alienCount = 0;
 let wave = 1;
 let hasGameStarted = false;
+let pause = false;
 
 
 
@@ -267,6 +271,10 @@ let Player = SheetSprite.extend({
     },
 
     handleInput: function() {
+        if(wasKeyPressed(PAUSE_KEY)) {
+            pause = !pause;
+        }
+
         if (isKeyDown(LEFT_KEY)) {
             this.xVel = -175;
         } else if (isKeyDown(RIGHT_KEY)) {
@@ -639,9 +647,12 @@ function resolveCollisions() {
 function updateGame(dt) {
     player.handleInput();
     prevKeyStates = keyStates.slice();
-    player.update(dt);
-    updateAliens(dt);
-    resolveCollisions();
+    
+    if(!pause) {
+        player.update(dt);
+        updateAliens(dt);
+        resolveCollisions();
+    }
 }
 
 function drawIntoCanvas(width, height, drawFunc) {
@@ -671,7 +682,7 @@ function fillBlinkingText(text, x, y, blinkFreq, color, fontSize) {
 }
 
 function drawBottomHud() {
-    ctx.fillStyle = '#02ff12';
+    ctx.fillStyle = BOTTOM_HUB_COLOR;
     ctx.fillRect(0, CANVAS_HEIGHT - 30, CANVAS_WIDTH, 2);
     fillText(player.lives + ' x ', 10, CANVAS_HEIGHT - 7.5, TEXT_COLOR, 20);
     ctx.drawImage(spriteSheetImg, player.clipRect.x, player.clipRect.y, player.clipRect.w,
@@ -697,8 +708,8 @@ function drawGame(resized) {
 }
 
 function drawStartScreen() {
-    fillCenteredText("Space Invaders", CANVAS_WIDTH/2, CANVAS_HEIGHT/2.75, '#FFFFFF', 36);
-    fillBlinkingText("Press enter to play!", CANVAS_WIDTH/2, CANVAS_HEIGHT/2, 500, '#FFFFFF', 36);
+    fillCenteredText("Space Invaders", CANVAS_WIDTH/2, CANVAS_HEIGHT/2.75, TEXT_COLOR, 36);
+    fillBlinkingText("Press enter to play!", CANVAS_WIDTH/2, CANVAS_HEIGHT/2, 500, TEXT_COLOR, 36);
 }
 
 function animate() {
@@ -715,7 +726,7 @@ function animate() {
     }
 
 
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = CANVAS_COLOR;
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     if (hasGameStarted) {
         drawGame(false);

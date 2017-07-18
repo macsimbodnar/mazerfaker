@@ -71,17 +71,10 @@
 /***/ 12:
 /***/ (function(module, exports) {
 
-/**
- * Created by max on 12/07/16.
- */
-/* Simple JavaScript Inheritance
- * By John Resig http://ejohn.org/
- * MIT Licensed.
- */
 // Inspired by base2 and Prototype
 (function () {
-    var initializing = false,
-        fnTest = /xyz/.test(function () {
+    var initializing = false;
+    var fnTest = /xyz/.test(function () {
         xyz;
     }) ? /\b_super\b/ : /.*/;
 
@@ -138,29 +131,30 @@
     };
 })();
 
-// ###################################################################
-// shims
+//###################################################################
 //
-// ###################################################################
+//                               shims
+//
+//###################################################################
 (function () {
-    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-    window.requestAnimationFrame = requestAnimationFrame;
+    // let requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    // window.requestAnimationFrame = requestAnimationFrame;
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 })();
 
 (function () {
-    if (!window.performance.now) {
-        window.performance.now = !Date.now ? function () {
-            return new Date().getTime();
-        } : function () {
-            return Date.now();
-        };
-    }
+    // TODO da vedere se serve
+    // if (!window.performance.now) {
+    //     window.performance.now = (!Date.now) ? function() { return new Date().getTime(); } :
+    //         function() { return Date.now(); }
+    // }
 })();
 
-// ###################################################################
-// Constants
+//###################################################################
 //
-// ###################################################################
+//                              Constants
+//
+//###################################################################
 var IS_CHROME = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var CANVAS_WIDTH = 640;
 var CANVAS_HEIGHT = 640;
@@ -176,10 +170,11 @@ var ALIEN_TOP_ROW = [{ x: 0, y: 68, w: 50, h: 32 }, { x: 0, y: 34, w: 50, h: 32 
 var ALIEN_X_MARGIN = 40;
 var ALIEN_SQUAD_WIDTH = 11 * ALIEN_X_MARGIN;
 
-// ###################################################################
-// Utility functions & classes
+//###################################################################
 //
-// ###################################################################
+//                  Utility functions & classes
+//
+//###################################################################
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
@@ -231,10 +226,11 @@ var Rect = Class.extend({
     }
 });
 
-// ###################################################################
-// Globals
+//###################################################################
 //
-// ###################################################################
+//                            Globals
+//
+//###################################################################
 var canvas = null;
 var ctx = null;
 var spriteSheetImg = null;
@@ -252,10 +248,11 @@ var alienCount = 0;
 var wave = 1;
 var hasGameStarted = false;
 
-// ###################################################################
-// Entities
+//###################################################################
 //
-// ###################################################################
+//                            Entities
+//
+//###################################################################
 var BaseSprite = Class.extend({
     init: function init(img, x, y) {
         this.img = img;
@@ -413,7 +410,7 @@ var Enemy = SheetSprite.extend({
         this.onFirstState = true;
         this.stepDelay = 1; // try 2 secs to start with...
         this.stepAccumulator = 0;
-        this.doShoot - false;
+        this.doShoot - false; // TODO da veddere che caspio è
         this.bullet = null;
     },
 
@@ -524,10 +521,11 @@ var ParticleExplosion = Class.extend({
     }
 });
 
-// ###################################################################
-// Initialization functions
+//###################################################################
 //
-// ###################################################################
+//                   Initialization functions
+//
+//###################################################################
 function initCanvas() {
     // create our canvas and context
     canvas = document.getElementById('canvas');
@@ -557,11 +555,11 @@ function preDrawImages() {
 }
 
 function setImageSmoothing(value) {
-    this.ctx['imageSmoothingEnabled'] = value;
-    this.ctx['mozImageSmoothingEnabled'] = value;
-    this.ctx['oImageSmoothingEnabled'] = value;
-    this.ctx['webkitImageSmoothingEnabled'] = value;
-    this.ctx['msImageSmoothingEnabled'] = value;
+    ctx['imageSmoothingEnabled'] = value;
+    ctx['mozImageSmoothingEnabled'] = value;
+    ctx['oImageSmoothingEnabled'] = value;
+    ctx['webkitImageSmoothingEnabled'] = value;
+    ctx['msImageSmoothingEnabled'] = value;
 }
 
 function initGame() {
@@ -578,7 +576,7 @@ function setupAlienFormation() {
     for (var i = 0, len = 5 * 11; i < len; i++) {
         var gridX = i % 11;
         var gridY = Math.floor(i / 11);
-        var clipRects;
+        var clipRects = void 0;
         switch (gridY) {
             case 0:
             case 1:
@@ -607,10 +605,11 @@ function init() {
     resize();
 }
 
-// ###################################################################
-// Helpful input functions
+//###################################################################
 //
-// ###################################################################
+//                        Helpful input functions
+//
+//###################################################################
 function isKeyDown(key) {
     return keyStates[key];
 }
@@ -619,10 +618,11 @@ function wasKeyPressed(key) {
     return !prevKeyStates[key] && keyStates[key];
 }
 
-// ###################################################################
-// Drawing & Update functions
+//###################################################################
 //
-// ###################################################################
+//                    Drawing & Update functions
+//
+//###################################################################
 function updateAliens(dt) {
     if (updateAlienLogic) {
         updateAlienLogic = false;
@@ -782,10 +782,11 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// ###################################################################
-// Event Listener functions
+//###################################################################
 //
-// ###################################################################
+//                     Event Listener functions
+//
+//###################################################################
 function resize() {
     var w = window.innerWidth;
     var h = window.innerHeight;
@@ -815,10 +816,11 @@ function onKeyUp(e) {
     keyStates[e.keyCode] = false;
 }
 
-// ###################################################################
-// Start game!
+//###################################################################
 //
-// ###################################################################
+//                              Start game!
+//
+//###################################################################
 window.onload = function () {
     init();
     animate();

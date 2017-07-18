@@ -97,7 +97,8 @@ const ALIEN_MIDDLE_ROW = [ { x: 0, y: 137, w: 50, h: 33 }, { x: 0, y: 170, w: 50
 const ALIEN_TOP_ROW = [ { x: 0, y: 68, w: 50, h: 32 }, { x: 0, y: 34, w: 50, h: 32 }];
 const ALIEN_X_MARGIN = 40;
 const ALIEN_SQUAD_WIDTH = 11 * ALIEN_X_MARGIN;
-
+const SHOOT_COLOR = 'gold';
+const TEXT_COLOR = 'gold';
 
 
 //###################################################################
@@ -487,7 +488,7 @@ function initCanvas() {
 
 function preDrawImages() {
     let canvas = drawIntoCanvas(2, 8, function(ctx) {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = SHOOT_COLOR;
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     });
     bulletImg = new Image();
@@ -503,7 +504,6 @@ function setImageSmoothing(value) {
 }
 
 function initGame() {
-    dirtyRects = [];
     aliens = [];
     player = new Player();
     particleManager = new ParticleExplosion();
@@ -606,7 +606,7 @@ function resolveBulletEnemyCollisions() {
             let alien = aliens[j];
             if (checkRectCollision(bullet.bounds, alien.bounds)) {
                 alien.alive = bullet.alive = false;
-                particleManager.createExplosion(alien.position.x, alien.position.y, 'white', 70, 5,5,3,.15,50);
+                particleManager.createExplosion(alien.position.x, alien.position.y, NastyUtil.nastyColor, 70, 5,5,3,.15,50);
                 player.score += 25;
             }
         }
@@ -673,7 +673,7 @@ function fillBlinkingText(text, x, y, blinkFreq, color, fontSize) {
 function drawBottomHud() {
     ctx.fillStyle = '#02ff12';
     ctx.fillRect(0, CANVAS_HEIGHT - 30, CANVAS_WIDTH, 2);
-    fillText(player.lives + ' x ', 10, CANVAS_HEIGHT - 7.5, 'white', 20);
+    fillText(player.lives + ' x ', 10, CANVAS_HEIGHT - 7.5, TEXT_COLOR, 20);
     ctx.drawImage(spriteSheetImg, player.clipRect.x, player.clipRect.y, player.clipRect.w,
         player.clipRect.h, 45, CANVAS_HEIGHT - 23, player.clipRect.w * 0.5,
         player.clipRect.h * 0.5);

@@ -73,7 +73,7 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__ = __webpack_require__(2);
 
 
 // Inspired by base2 and Prototype
@@ -171,6 +171,8 @@ var ALIEN_MIDDLE_ROW = [{ x: 0, y: 137, w: 50, h: 33 }, { x: 0, y: 170, w: 50, h
 var ALIEN_TOP_ROW = [{ x: 0, y: 68, w: 50, h: 32 }, { x: 0, y: 34, w: 50, h: 32 }];
 var ALIEN_X_MARGIN = 40;
 var ALIEN_SQUAD_WIDTH = 11 * ALIEN_X_MARGIN;
+var SHOOT_COLOR = 'gold';
+var TEXT_COLOR = 'gold';
 
 //###################################################################
 //
@@ -549,7 +551,7 @@ function initCanvas() {
 
 function preDrawImages() {
     var canvas = drawIntoCanvas(2, 8, function (ctx) {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = SHOOT_COLOR;
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     });
     bulletImg = new Image();
@@ -565,7 +567,6 @@ function setImageSmoothing(value) {
 }
 
 function initGame() {
-    dirtyRects = [];
     aliens = [];
     player = new Player();
     particleManager = new ParticleExplosion();
@@ -668,7 +669,7 @@ function resolveBulletEnemyCollisions() {
             var alien = aliens[j];
             if (checkRectCollision(bullet.bounds, alien.bounds)) {
                 alien.alive = bullet.alive = false;
-                particleManager.createExplosion(alien.position.x, alien.position.y, 'white', 70, 5, 5, 3, .15, 50);
+                particleManager.createExplosion(alien.position.x, alien.position.y, __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__["a" /* default */].nastyColor, 70, 5, 5, 3, .15, 50);
                 player.score += 25;
             }
         }
@@ -734,7 +735,7 @@ function fillBlinkingText(text, x, y, blinkFreq, color, fontSize) {
 function drawBottomHud() {
     ctx.fillStyle = '#02ff12';
     ctx.fillRect(0, CANVAS_HEIGHT - 30, CANVAS_WIDTH, 2);
-    fillText(player.lives + ' x ', 10, CANVAS_HEIGHT - 7.5, 'white', 20);
+    fillText(player.lives + ' x ', 10, CANVAS_HEIGHT - 7.5, TEXT_COLOR, 20);
     ctx.drawImage(spriteSheetImg, player.clipRect.x, player.clipRect.y, player.clipRect.w, player.clipRect.h, 45, CANVAS_HEIGHT - 23, player.clipRect.w * 0.5, player.clipRect.h * 0.5);
     fillText('CREDIT: ', CANVAS_WIDTH - 115, CANVAS_HEIGHT - 7.5);
     fillCenteredText('SCORE: ' + player.score, CANVAS_WIDTH / 2, 20);
@@ -830,7 +831,7 @@ window.onload = function () {
 
 /***/ }),
 
-/***/ 3:
+/***/ 2:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

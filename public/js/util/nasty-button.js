@@ -10458,10 +10458,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/**
- * Created by Maksym Bodnar on 10/04/17.
- */
-
 /* ###### NASTY 2 ###### */
 
 var NastyUtil = function () {

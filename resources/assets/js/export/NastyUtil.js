@@ -1,7 +1,3 @@
-/**
- * Created by Maksym Bodnar on 10/04/17.
- */
-
 /* ###### NASTY 2 ###### */
 
 export default class NastyUtil {

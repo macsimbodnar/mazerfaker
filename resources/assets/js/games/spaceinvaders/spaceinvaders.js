@@ -1,13 +1,16 @@
+import NastyUtil from '../../export/NastyUtil';
+
 // Inspired by base2 and Prototype
-(function(){
+let Clazz;
+function initClazz(){
     let initializing = false;
     let fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 
-    // The base Class implementation (does nothing)
-    this.Class = function(){};
+    // The base Clazz implementation (does nothing)
+    Clazz = function(){};
 
-    // Create a new Class that inherits from this class
-    Class.extend = function(prop) {
+    // Create a new Clazz that inherits from this class
+    Clazz.extend = function ext(prop) {
         let _super = this.prototype;
 
         // Instantiate a base class (but only create the instance,
@@ -16,49 +19,52 @@
         let prototype = new this();
         initializing = false;
 
+
+        function name_to_function(name, fn){
+            return function() {
+                let tmp = this._super;
+
+                // Add a new ._super() method that is the same method
+                // but on the super-class
+                this._super = _super[name];
+
+                // The method only need to be bound temporarily, so we
+                // remove it when we're done executing
+                let ret = fn.apply(this, arguments);
+                this._super = tmp;
+
+                return ret;
+            };
+        }
+
         // Copy the properties over onto the new prototype
         for (let name in prop) {
             // Check if we're overwriting an existing function
             prototype[name] = typeof prop[name] == "function" &&
-            typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-                (function(name, fn){
-                    return function() {
-                        let tmp = this._super;
-
-                        // Add a new ._super() method that is the same method
-                        // but on the super-class
-                        this._super = _super[name];
-
-                        // The method only need to be bound temporarily, so we
-                        // remove it when we're done executing
-                        let ret = fn.apply(this, arguments);
-                        this._super = tmp;
-
-                        return ret;
-                    };
-                })(name, prop[name]) :
-                prop[name];
+            typeof _super[name] == "function" && fnTest.test(prop[name]) ? name_to_function(name, prop[name]) : prop[name];
         }
 
         // The dummy class constructor
-        function Class() {
+        function Clazz() {
             // All construction is actually done in the init method
             if ( !initializing && this.init )
                 this.init.apply(this, arguments);
         }
 
         // Populate our constructed prototype object
-        Class.prototype = prototype;
+        Clazz.prototype = prototype;
 
         // Enforce the constructor to be what we expect
-        Class.prototype.constructor = Class;
+        Clazz.prototype.constructor = Clazz;
 
         // And make this class extendable
-        Class.extend = arguments.callee;
+        Clazz.extend = ext;//arguments.callee;
 
-        return Class;
+        return Clazz;
     };
-})();
+}
+
+initClazz();
 
 
 //###################################################################
@@ -66,19 +72,11 @@
 //                               shims
 //
 //###################################################################
-(function() {
-    // let requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-    // window.requestAnimationFrame = requestAnimationFrame;
+function shims() {
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-})();
+}
 
-(function() {
-    // TODO da vedere se serve
-    // if (!window.performance.now) {
-    //     window.performance.now = (!Date.now) ? function() { return new Date().getTime(); } :
-    //         function() { return Date.now(); }
-    // }
-})();
+shims();
 
 //###################################################################
 //
@@ -89,9 +87,9 @@ const IS_CHROME = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(naviga
 const CANVAS_WIDTH = 640;
 const CANVAS_HEIGHT = 640;
 const SPRITE_SHEET_SRC = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAEACAYAAAADRnAGAAACGUlEQVR42u3aSQ7CMBAEQIsn8P+/hiviAAK8zFIt5QbELiTHmfEYE3L9mZE9AAAAqAVwBQ8AAAD6THY5CgAAAKbfbPX3AQAAYBEEAADAuZrC6UUyfMEEAIBiAN8OePXnAQAAsLcmmKFPAQAAgHMbm+gbr3Sdo/LtcAAAANR6GywPAgBAM4D2JXAAABoBzBjA7AmlOx8AAEAzAOcDAADovTc4vQim6wUCABAYQG8QAADd4dPd2fRVYQAAANQG0B4HAABAawDnAwAA6AXgfAAAALpA2uMAAABwPgAAgPoAM9Ci/R4AAAD2dmqcEQIAIC/AiQGuAAYAAECcRS/a/cJXkUf2AAAAoBaA3iAAALrD+gIAAADY9baX/nwAAADNADwFAADo9YK0e5FMX/UFACA5QPSNEAAAAHKtCekmDAAAAADvBljtfgAAAGgMMGOrunvCy2uCAAAACFU6BwAAwF6AGQPa/XsAAADYB+B8AAAAtU+ItD4OAwAAAFVhAACaA0T7B44/BQAAANALwGMQAAAAADYO8If2+P31AgAAQN0SWbhFDwCAZlXgaO1xAAAA1FngnA8AACAeQPSNEAAAAM4CnC64AAAA4GzN4N9NSfgKEAAAAACszO26X8/X6BYAAAD0Anid8KcLAAAAAAAAAJBnwNEvAAAA9Jns1ygAAAAAAAAAAAAAAAAAAABAQ4COCENERERERERERBrnAa1sJuUVr3rsAAAAAElFTkSuQmCC';
-const LEFT_KEY = 37;
-const RIGHT_KEY = 39;
-const SHOOT_KEY = 88;
+const LEFT_KEY = 37;  // <-
+const RIGHT_KEY = 39; // ->
+const SHOOT_KEY = 88; // x
 const TEXT_BLINK_FREQ = 500;
 const PLAYER_CLIP_RECT = { x: 0, y: 204, w: 62, h: 32 };
 const ALIEN_BOTTOM_ROW = [ { x: 0, y: 0, w: 51, h: 34 }, { x: 0, y: 102, w: 51, h: 34 }];
@@ -132,7 +130,7 @@ function checkRectCollision(A, B) {
     return xOverlap && yOverlap;
 }
 
-let Point2D = Class.extend({
+let Point2D = Clazz.extend({
     init: function(x, y) {
         this.x = (typeof x === 'undefined') ? 0 : x;
         this.y = (typeof y === 'undefined') ? 0 : y;
@@ -144,7 +142,7 @@ let Point2D = Class.extend({
     }
 });
 
-let Rect = Class.extend({
+let Rect = Clazz.extend({
     init: function(x, y, w, h) {
         this.x = (typeof x === 'undefined') ? 0 : x;
         this.y = (typeof y === 'undefined') ? 0 : y;
@@ -191,7 +189,7 @@ let hasGameStarted = false;
 //                            Entities
 //
 //###################################################################
-let BaseSprite = Class.extend({
+let BaseSprite = Clazz.extend({
     init: function(img, x, y) {
         this.img = img;
         this.position = new Point2D(x, y);
@@ -400,7 +398,7 @@ let Enemy = SheetSprite.extend({
     }
 });
 
-let ParticleExplosion = Class.extend({
+let ParticleExplosion = Clazz.extend({
     init: function() {
         this.particlePool = [];
         this.particles = [];

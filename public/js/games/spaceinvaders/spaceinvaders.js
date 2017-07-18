@@ -69,20 +69,26 @@
 /******/ ({
 
 /***/ 12:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__ = __webpack_require__(3);
+
 
 // Inspired by base2 and Prototype
-(function () {
+var Clazz = void 0;
+function initClazz() {
     var initializing = false;
     var fnTest = /xyz/.test(function () {
         xyz;
     }) ? /\b_super\b/ : /.*/;
 
-    // The base Class implementation (does nothing)
-    this.Class = function () {};
+    // The base Clazz implementation (does nothing)
+    Clazz = function Clazz() {};
 
-    // Create a new Class that inherits from this class
-    Class.extend = function (prop) {
+    // Create a new Clazz that inherits from this class
+    Clazz.extend = function ext(prop) {
         var _super = this.prototype;
 
         // Instantiate a base class (but only create the instance,
@@ -91,64 +97,60 @@
         var prototype = new this();
         initializing = false;
 
+        function name_to_function(name, fn) {
+            return function () {
+                var tmp = this._super;
+
+                // Add a new ._super() method that is the same method
+                // but on the super-class
+                this._super = _super[name];
+
+                // The method only need to be bound temporarily, so we
+                // remove it when we're done executing
+                var ret = fn.apply(this, arguments);
+                this._super = tmp;
+
+                return ret;
+            };
+        }
+
         // Copy the properties over onto the new prototype
         for (var name in prop) {
             // Check if we're overwriting an existing function
-            prototype[name] = typeof prop[name] == "function" && typeof _super[name] == "function" && fnTest.test(prop[name]) ? function (name, fn) {
-                return function () {
-                    var tmp = this._super;
-
-                    // Add a new ._super() method that is the same method
-                    // but on the super-class
-                    this._super = _super[name];
-
-                    // The method only need to be bound temporarily, so we
-                    // remove it when we're done executing
-                    var ret = fn.apply(this, arguments);
-                    this._super = tmp;
-
-                    return ret;
-                };
-            }(name, prop[name]) : prop[name];
+            prototype[name] = typeof prop[name] == "function" && typeof _super[name] == "function" && fnTest.test(prop[name]) ? name_to_function(name, prop[name]) : prop[name];
         }
 
         // The dummy class constructor
-        function Class() {
+        function Clazz() {
             // All construction is actually done in the init method
             if (!initializing && this.init) this.init.apply(this, arguments);
         }
 
         // Populate our constructed prototype object
-        Class.prototype = prototype;
+        Clazz.prototype = prototype;
 
         // Enforce the constructor to be what we expect
-        Class.prototype.constructor = Class;
+        Clazz.prototype.constructor = Clazz;
 
         // And make this class extendable
-        Class.extend = arguments.callee;
+        Clazz.extend = ext; //arguments.callee;
 
-        return Class;
+        return Clazz;
     };
-})();
+}
+
+initClazz();
 
 //###################################################################
 //
 //                               shims
 //
 //###################################################################
-(function () {
-    // let requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-    // window.requestAnimationFrame = requestAnimationFrame;
+function shims() {
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-})();
+}
 
-(function () {
-    // TODO da vedere se serve
-    // if (!window.performance.now) {
-    //     window.performance.now = (!Date.now) ? function() { return new Date().getTime(); } :
-    //         function() { return Date.now(); }
-    // }
-})();
+shims();
 
 //###################################################################
 //
@@ -159,9 +161,9 @@ var IS_CHROME = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigato
 var CANVAS_WIDTH = 640;
 var CANVAS_HEIGHT = 640;
 var SPRITE_SHEET_SRC = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAEACAYAAAADRnAGAAACGUlEQVR42u3aSQ7CMBAEQIsn8P+/hiviAAK8zFIt5QbELiTHmfEYE3L9mZE9AAAAqAVwBQ8AAAD6THY5CgAAAKbfbPX3AQAAYBEEAADAuZrC6UUyfMEEAIBiAN8OePXnAQAAsLcmmKFPAQAAgHMbm+gbr3Sdo/LtcAAAANR6GywPAgBAM4D2JXAAABoBzBjA7AmlOx8AAEAzAOcDAADovTc4vQim6wUCABAYQG8QAADd4dPd2fRVYQAAANQG0B4HAABAawDnAwAA6AXgfAAAALpA2uMAAABwPgAAgPoAM9Ci/R4AAAD2dmqcEQIAIC/AiQGuAAYAAECcRS/a/cJXkUf2AAAAoBaA3iAAALrD+gIAAADY9baX/nwAAADNADwFAADo9YK0e5FMX/UFACA5QPSNEAAAAHKtCekmDAAAAADvBljtfgAAAGgMMGOrunvCy2uCAAAACFU6BwAAwF6AGQPa/XsAAADYB+B8AAAAtU+ItD4OAwAAAFVhAACaA0T7B44/BQAAANALwGMQAAAAADYO8If2+P31AgAAQN0SWbhFDwCAZlXgaO1xAAAA1FngnA8AACAeQPSNEAAAAM4CnC64AAAA4GzN4N9NSfgKEAAAAACszO26X8/X6BYAAAD0Anid8KcLAAAAAAAAAJBnwNEvAAAA9Jns1ygAAAAAAAAAAAAAAAAAAABAQ4COCENERERERERERBrnAa1sJuUVr3rsAAAAAElFTkSuQmCC';
-var LEFT_KEY = 37;
-var RIGHT_KEY = 39;
-var SHOOT_KEY = 88;
+var LEFT_KEY = 37; // <-
+var RIGHT_KEY = 39; // ->
+var SHOOT_KEY = 88; // x
 var TEXT_BLINK_FREQ = 500;
 var PLAYER_CLIP_RECT = { x: 0, y: 204, w: 62, h: 32 };
 var ALIEN_BOTTOM_ROW = [{ x: 0, y: 0, w: 51, h: 34 }, { x: 0, y: 102, w: 51, h: 34 }];
@@ -198,7 +200,7 @@ function checkRectCollision(A, B) {
     return xOverlap && yOverlap;
 }
 
-var Point2D = Class.extend({
+var Point2D = Clazz.extend({
     init: function init(x, y) {
         this.x = typeof x === 'undefined' ? 0 : x;
         this.y = typeof y === 'undefined' ? 0 : y;
@@ -210,7 +212,7 @@ var Point2D = Class.extend({
     }
 });
 
-var Rect = Class.extend({
+var Rect = Clazz.extend({
     init: function init(x, y, w, h) {
         this.x = typeof x === 'undefined' ? 0 : x;
         this.y = typeof y === 'undefined' ? 0 : y;
@@ -253,7 +255,7 @@ var hasGameStarted = false;
 //                            Entities
 //
 //###################################################################
-var BaseSprite = Class.extend({
+var BaseSprite = Clazz.extend({
     init: function init(img, x, y) {
         this.img = img;
         this.position = new Point2D(x, y);
@@ -461,7 +463,7 @@ var Enemy = SheetSprite.extend({
     }
 });
 
-var ParticleExplosion = Class.extend({
+var ParticleExplosion = Clazz.extend({
     init: function init() {
         this.particlePool = [];
         this.particles = [];
@@ -825,6 +827,46 @@ window.onload = function () {
     init();
     animate();
 };
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/* ###### NASTY 2 ###### */
+
+var NastyUtil = function () {
+    function NastyUtil() {
+        _classCallCheck(this, NastyUtil);
+    }
+
+    _createClass(NastyUtil, null, [{
+        key: "getNastyRandom",
+        value: function getNastyRandom(range) {
+            return Math.floor(Math.random() * range + 1);
+        }
+    }, {
+        key: "playNastyAudio",
+        value: function playNastyAudio(path) {
+            var audio = new Audio(path);
+            audio.play();
+        }
+    }, {
+        key: "nastyColor",
+        get: function get() {
+            return '#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6);
+        }
+    }]);
+
+    return NastyUtil;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (NastyUtil);
 
 /***/ }),
 

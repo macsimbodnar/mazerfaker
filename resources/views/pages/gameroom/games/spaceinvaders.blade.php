@@ -9,9 +9,9 @@
 
 @section('game-frame')
 
-    <div id="snake-game" class="snake-game">
+    <div id="spaceinvaders-game" class="spaceinvaders-game">
 
-        <canvas id="canvas" class="canvas" width="640" height="640"></canvas>
+        <canvas id="canvas" class="canvas"></canvas>
 
     </div>
 

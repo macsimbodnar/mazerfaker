@@ -3,7 +3,7 @@
  */
 
 require('hammerjs');
-import NastyUtil from '../../export/NastyUtil'
+import NastyUtil from '../../export/NastyUtil';
 
 /*
  * CONSTANTS

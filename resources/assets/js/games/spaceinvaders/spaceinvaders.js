@@ -186,7 +186,23 @@ let alienCount = 0;
 let wave = 1;
 let hasGameStarted = false;
 let pause = false;
+let user = null;
+let userId = null;
+let gameId = null;
 
+
+function initUser() {
+    // Get user information
+    user = $('#user');
+    if(user.length > 0) {
+        userId = user.data('userid');
+    } else {
+        user = null;
+    }
+
+    // get game id
+    gameId = $('#game-id').data('gameid');
+}
 
 
 //###################################################################
@@ -781,6 +797,7 @@ function onKeyUp(e) {
 //
 //###################################################################
 window.onload = function() {
+    initUser();
     init();
     animate();
 };

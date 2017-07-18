@@ -71,13 +71,6 @@
 @endsection
 
 @section('info-frame')
-
-    @if($user)
-        <div id="user" data-userid="{{ $user->id }}" hidden ></div>
-    @endif
-
-    <div id="game-id" data-gameid="{{ $game->id }}" hidden ></div>
-
     <div class="d-flex justify-content-between">
         <label for="wall-collision" class="">
             <h6>{{ __('game.wall-collision') }}</h6>

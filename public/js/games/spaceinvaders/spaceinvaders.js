@@ -10333,7 +10333,7 @@ return jQuery;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__export_NastyUtil__ = __webpack_require__(2);
 
 
@@ -10516,6 +10516,22 @@ var alienCount = 0;
 var wave = 1;
 var hasGameStarted = false;
 var pause = false;
+var user = null;
+var userId = null;
+var gameId = null;
+
+function initUser() {
+    // Get user information
+    user = $('#user');
+    if (user.length > 0) {
+        userId = user.data('userid');
+    } else {
+        user = null;
+    }
+
+    // get game id
+    gameId = $('#game-id').data('gameid');
+}
 
 //###################################################################
 //
@@ -11098,9 +11114,11 @@ function onKeyUp(e) {
 //
 //###################################################################
 window.onload = function () {
+    initUser();
     init();
     animate();
 };
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 

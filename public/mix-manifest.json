@@ -5,7 +5,7 @@
   "/css/games/spaceinvaders/spaceinvaders.css": "/css/games/spaceinvaders/spaceinvaders.css",
   "/js/games/snake/snake.js": "/js/games/snake/snake.js",
   "/js/util/nasty-button.js": "/js/util/nasty-button.js",
+  "/js/games/spaceinvaders/spaceinvaders.js": "/js/games/spaceinvaders/spaceinvaders.js",
   "/js/test/test.js": "/js/test/test.js",
-  "/js/leslie/tips.js": "/js/leslie/tips.js",
-  "/js/games/spaceinvaders/spaceinvaders.js": "/js/games/spaceinvaders/spaceinvaders.js"
+  "/js/leslie/tips.js": "/js/leslie/tips.js"
 }

@@ -643,6 +643,7 @@ function resolveBulletPlayerCollisions() {
         if (alien.bullet !== null && checkRectCollision(alien.bullet.bounds, player.bounds)) {
             if (player.lives === 0) {
                 hasGameStarted = false;
+                saveScore(player.score);
             } else {
                 alien.bullet.alive = false;
                 particleManager.createExplosion(player.position.x, player.position.y, 'green', 100, 8,8,6,0.001,40);
@@ -788,6 +789,26 @@ function onKeyDown(e) {
 function onKeyUp(e) {
     e.preventDefault();
     keyStates[e.keyCode] = false;
+}
+
+
+function saveScore(score) {
+    if(user) {
+
+        function onSucces(data) {
+            // TODO da fare;
+        }
+
+        function onFail(jqXHR, textStatus) {
+            // TODO da fare
+        }
+
+        function always() {
+            // TODO da fare
+        }
+
+        NastyUtil.saveScore(user, gameId, score, onSucces, onFail, always);
+    }
 }
 
 

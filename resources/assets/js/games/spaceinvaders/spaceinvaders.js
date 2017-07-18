@@ -521,7 +521,7 @@ function preDrawImages() {
 
 function setImageSmoothing(value) {
     ctx['imageSmoothingEnabled'] = value;
-    ctx['mozImageSmoothingEnabled'] = value;
+    //ctx['mozImageSmoothingEnabled'] = value;
     ctx['oImageSmoothingEnabled'] = value;
     ctx['webkitImageSmoothingEnabled'] = value;
     ctx['msImageSmoothingEnabled'] = value;

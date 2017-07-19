@@ -5,6 +5,9 @@
     <div class="container h-100">
         @component('components.nastybutton')
         @endcomponent
+
+        @component('components.big-fat-button')
+        @endcomponent
     </div>
 </div>
 @endsection

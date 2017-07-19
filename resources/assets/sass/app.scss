@@ -116,6 +116,34 @@
   cursor: pointer;
 }
 
+// Big Fat Button
+.big-fat-button-container {
+
+}
+
+#big-fat-button {
+  background-image: url("images/icons/big-fat-button.png");
+  width: 200px;
+  height: 200px;
+  background-size: 424px 200px;
+  background-position-x: 0;
+  background-position-y: 0;
+  position: absolute;
+  bottom: 65px;
+  //left: calc(50% - 100px);
+  right: 0;
+
+}
+
+#big-fat-button:hover {
+  background-position-x: 200px;
+  background-position-y: 0;
+}
+
+.big-fat-button {
+
+}
+
 // Games room
 .game-card {
   max-width: 22rem;
